@@ -3,7 +3,7 @@ package infrastructure
 import (
 	"encoding/csv"
 	"fmt"
-	"Student-portal/internal"
+	"oops/main/internal"
 	"os"
 	"strconv"
 	"encoding/json"
@@ -31,10 +31,12 @@ func ExportTranscript(path string, list []internal.Enrollment) error {
 	return w.Error()
 }
 
+
 // func hello() {
 // 	var atRiskStudents []internal.AcademicRecord
 // 	fmt.Print(atRiskStudents)
 // }
+
 
 func ExportAtRiskStudents(path string, internal []internal.AcademicRecord) error {
 

@@ -12,10 +12,9 @@ TEACHER_FILES=(
     "document.go"
     "docupload.go"
     "exportResult_test.go"
-    "uploadStudentMark_test.go"
+    "UploadStudentMark_test.go"
     "attendance.go"
-    "attendance_test.go"
-    "displayAttendance_test.go"
+    "attendance_test.go"    
 )
 
 echo "🧪 Running tests and generating coverage profile..."
@@ -63,7 +62,7 @@ echo "📈 Coverage report for teacher module:"
 go tool cover -func=teacher_coverage.out
 
 echo ""
-echo "🎯 TEACHER MODULE COVERAGE SUMMARY:"
+echo "🎯 *TEACHER MODULE COVERAGE SUMMARY:*"
 COVERAGE_SUMMARY=$(go tool cover -func=teacher_coverage.out | grep "total:" | awk '{print $3}')
 
 if [ -n "$COVERAGE_SUMMARY" ]; then

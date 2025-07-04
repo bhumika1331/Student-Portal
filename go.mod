@@ -1,3 +1,3 @@
-module Student-portal
+module oops/main
 
 go 1.24.4

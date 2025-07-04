@@ -2,7 +2,7 @@ package internal
 
 import "testing"
 
-func TestPercentageGrader (t *testing.T) {
+func TestPercentageGrader(t *testing.T) {
 	e := Enrollment{score: 0.875, Grader: PercentageGrader{}}
 	got, _ := e.Grade(e)
 	want := "87.5%"
