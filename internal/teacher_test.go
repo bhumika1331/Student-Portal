@@ -19,11 +19,11 @@ func setupTeacherTestEnv() (*TeacherService, int, int, string) {
 	gr := PercentageGrader{}
 
 	// Registrar setup
-	reg := &NewRegistrar{}
+	reg := &NewRegistrarS{}
 	enroll := NewEnrollNew(student, course, gr, 0.85, att, teacher)
 	reg.Enrollnew(enroll)
 	reg.AddTeacher(teacher)
-	regWithDocs := &RegistrarWithDocs{NewRegistrar: reg}
+	regWithDocs := &RegistrarWithDocs{NewRegistrarS: reg}
 
 	ts := &TeacherService{Registrar: regWithDocs, Teacher: teacher}
 	return ts, courseID, studentID, teacherID

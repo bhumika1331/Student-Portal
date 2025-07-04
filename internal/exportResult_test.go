@@ -44,20 +44,20 @@ func (ts *TeacherService) ExportMarksForCourseCSV(courseID int) (string, error) 
 }
 
 func TestExportMarksForCourseJSON(t *testing.T) {
-	registrar := &RegistrarWithDocs{NewRegistrar: &NewRegistrar{}}
+	registrar := &RegistrarWithDocs{NewRegistrarS: &NewRegistrarS{}}
 	teacher := NewTeacher("T1", "Alice")
 	course := NewCourse(101, "Math")
 	grader := LetterGrader{}
 
 	// Add teacher and course mapping
-	registrar.NewRegistrar.AddTeacher(teacher)
-	registrar.NewRegistrar.AddTeacherenrollment(NewTeacherEnrollment(teacher, CreditCourse{Course: course, Credit: 4}))
+	registrar.NewRegistrarS.AddTeacher(teacher)
+	registrar.NewRegistrarS.AddTeacherenrollment(NewTeacherEnrollment(teacher, CreditCourse{Course: course, Credit: 4}))
 
 	// Enroll students 1-50 in course 101 with teacher T1 and assign scores
 	for i := 1; i <= 50; i++ {
 		student := NewStudent(i, fmt.Sprintf("Student%d", i))
 		enroll := NewEnrollNew(student, course, grader, float64(50+i), Attendance{}, teacher)
-		registrar.NewRegistrar.Enrollnew(enroll)
+		registrar.NewRegistrarS.Enrollnew(enroll)
 	}
 
 	ts := &TeacherService{Registrar: registrar, Teacher: teacher}
@@ -83,20 +83,20 @@ func TestExportMarksForCourseJSON(t *testing.T) {
 }
 
 func TestExportMarksForCourseCSV(t *testing.T) {
-	registrar := &RegistrarWithDocs{NewRegistrar: &NewRegistrar{}}
+	registrar := &RegistrarWithDocs{NewRegistrarS: &NewRegistrarS{}}
 	teacher := NewTeacher("T1", "Alice")
 	course := NewCourse(101, "Math")
 	grader := LetterGrader{}
 
 	// Add teacher and course mapping
-	registrar.NewRegistrar.AddTeacher(teacher)
-	registrar.NewRegistrar.AddTeacherenrollment(NewTeacherEnrollment(teacher, CreditCourse{Course: course, Credit: 4}))
+	registrar.NewRegistrarS.AddTeacher(teacher)
+	registrar.NewRegistrarS.AddTeacherenrollment(NewTeacherEnrollment(teacher, CreditCourse{Course: course, Credit: 4}))
 
 	// Enroll students 1-50 in course 101 with teacher T1 and assign scores
 	for i := 1; i <= 50; i++ {
 		student := NewStudent(i, fmt.Sprintf("Student%d", i))
 		enroll := NewEnrollNew(student, course, grader, float64(50+i), Attendance{}, teacher)
-		registrar.NewRegistrar.Enrollnew(enroll)
+		registrar.NewRegistrarS.Enrollnew(enroll)
 	}
 
 	ts := &TeacherService{Registrar: registrar, Teacher: teacher}

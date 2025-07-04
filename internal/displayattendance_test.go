@@ -19,11 +19,11 @@ func setupDisplayAttendanceTest() (*TeacherService, int, int, string, time.Time)
 	date := time.Date(2025, 7, 4, 0, 0, 0, 0, time.UTC)
 	att.Records[date] = true
 	gr := PercentageGrader{}
-	reg := &NewRegistrar{}
+	reg := &NewRegistrarS{}
 	enroll := NewEnrollNew(student, course, gr, 0.85, att, teacher)
 	reg.Enrollnew(enroll)
 	reg.AddTeacher(teacher)
-	regWithDocs := &RegistrarWithDocs{NewRegistrar: reg}
+	regWithDocs := &RegistrarWithDocs{NewRegistrarS: reg}
 	ts := &TeacherService{Registrar: regWithDocs, Teacher: teacher}
 	return ts, courseID, studentID, teacherID, date
 }

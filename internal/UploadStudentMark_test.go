@@ -8,20 +8,20 @@ import (
 
 func TestUploadStudentMarksFromJSON(t *testing.T) {
 	// Setup: Registrar, Teacher, Course, Grader
-	registrar := &RegistrarWithDocs{NewRegistrar: &NewRegistrar{}}
+	registrar := &RegistrarWithDocs{NewRegistrarS: &NewRegistrarS{}}
 	teacher := NewTeacher("T1", "Alice")
 	course := NewCourse(101, "Math")
 	grader := LetterGrader{}
 
 	// Add teacher and course mapping
-	registrar.NewRegistrar.AddTeacher(teacher)
-	registrar.NewRegistrar.AddTeacherenrollment(NewTeacherEnrollment(teacher, CreditCourse{Course: course, Credit: 4}))
+	registrar.NewRegistrarS.AddTeacher(teacher)
+	registrar.NewRegistrarS.AddTeacherenrollment(NewTeacherEnrollment(teacher, CreditCourse{Course: course, Credit: 4}))
 
 	// Enroll students 1-50 in course 101 with teacher T1
 	for i := 1; i <= 50; i++ {
 		student := NewStudent(i, fmt.Sprintf("Student%d", i))
 		enroll := NewEnrollNew(student, course, grader, 0, Attendance{}, teacher)
-		registrar.NewRegistrar.Enrollnew(enroll)
+		registrar.NewRegistrarS.Enrollnew(enroll)
 	}
 
 	ts := &TeacherService{Registrar: registrar, Teacher: teacher}
@@ -39,7 +39,7 @@ func TestUploadStudentMarksFromJSON(t *testing.T) {
 	// Check that marks are uploaded for all enrolled students
 	for i := 1; i <= 50; i++ {
 		found := false
-		for _, e := range registrar.NewRegistrar.enroll {
+		for _, e := range registrar.NewRegistrarS.enroll {
 			if e.Student.ID() == i && e.Course.Id == 101 && e.Teacher.TID() == "T1" {
 				if e.score == 0 {
 					t.Errorf("score not uploaded for student %d", i)

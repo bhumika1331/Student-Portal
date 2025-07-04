@@ -14,7 +14,7 @@ func (ts *TeacherService) UploadFile(
 	mimeType string,
 	content []byte,
 ) error {
-	for _, e := range ts.Registrar.NewRegistrar.enroll {
+	for _, e := range ts.Registrar.NewRegistrarS.enroll {
 		if e.Course.Id == courseID &&
 			e.Student.ID() == studentID &&
 			e.Teacher.TID() == ts.Teacher.TID() {

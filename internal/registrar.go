@@ -23,7 +23,7 @@ func NewRegistrar() *Registrar {
 	return &Registrar{graders: make(map[int]Grader)}
 }
 
-type NewRegistrar struct {
+type NewRegistrarS struct {
 	Registrar
 	teacher    []Teacher
 	teachermap []TeacherEnrollment
@@ -31,7 +31,7 @@ type NewRegistrar struct {
 }
 
 type RegistrarWithDocs struct {
-	*NewRegistrar
+	*NewRegistrarS
 	enrollWithDocs []EnrollnewWithDocs
 }
 
@@ -48,11 +48,11 @@ func (r *RegistrarWithDocs) DisplayDocuments() {
 	}
 }
 
-func (r *NewRegistrar) AddTeacher(t Teacher) {
+func (r *NewRegistrarS) AddTeacher(t Teacher) {
 	r.teacher = append(r.teacher, t)
 }
 
-func (r *NewRegistrar) AddTeacherenrollment(te TeacherEnrollment) {
+func (r *NewRegistrarS) AddTeacherenrollment(te TeacherEnrollment) {
 	r.teachermap = append(r.teachermap, te)
 }
 
@@ -68,11 +68,9 @@ func (r *Registrar) Enroll(e Enrollment) {
 	r.enrollments = append(r.enrollments, e)
 }
 
-
-func (r *NewRegistrar) Enrollnew(e EnrollNew) {
+func (r *NewRegistrarS) Enrollnew(e EnrollNew) {
 	r.enroll = append(r.enroll, e)
 }
-
 
 func (r *Registrar) SetGrader(courseID int, g Grader) {
 	for i, e := range r.enrollments {

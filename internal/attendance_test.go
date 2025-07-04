@@ -6,7 +6,7 @@ import (
 )
 
 func TestMarkAttendance(t *testing.T) {
-	registrar := &NewRegistrar{}
+	registrar := &NewRegistrarS{}
 	teacher := NewTeacher("T1", "Alice")
 	student := NewStudent(1, "Bob")
 	course := NewCourse(101, "Math")

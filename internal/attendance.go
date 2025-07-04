@@ -16,7 +16,7 @@ func markAttendance(attendance *Attendance, date time.Time, present bool) {
 }
 
 // need to check time data type parameter passing
-func Giveattendence(r *NewRegistrar, courseID int, studentID int, TeacherID string, attendence bool, t time.Time) {
+func Giveattendence(r *NewRegistrarS, courseID int, studentID int, TeacherID string, attendence bool, t time.Time) {
 	for i := range r.enroll {
 		e := &r.enroll[i]
 		if e.Course.Id == courseID && e.Student.ID() == studentID && e.Teacher.TID() == TeacherID {
