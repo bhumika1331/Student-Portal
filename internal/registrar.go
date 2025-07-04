@@ -4,6 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+
+	//"oops/main/internal"
+
+	//"oops/main/analytics"
+	//"oops/main/domain"
 	"os"
 )
 
@@ -11,13 +16,18 @@ type Registrar struct {
 	students    []Student
 	courses     []Course
 	enrollments []Enrollment
+	graders     map[int]Grader
+}
+
+func NewRegistrar() *Registrar {
+	return &Registrar{graders: make(map[int]Grader)}
 }
 
 type NewRegistrar struct {
 	Registrar
 	teacher    []Teacher
-	teachermap []Teacherenrollment
-	enroll     []Enrollnew
+	teachermap []TeacherEnrollment
+	enroll     []EnrollNew
 }
 
 type RegistrarWithDocs struct {
@@ -42,7 +52,7 @@ func (r *NewRegistrar) AddTeacher(t Teacher) {
 	r.teacher = append(r.teacher, t)
 }
 
-func (r *NewRegistrar) AddTeacherenrollment(te Teacherenrollment) {
+func (r *NewRegistrar) AddTeacherenrollment(te TeacherEnrollment) {
 	r.teachermap = append(r.teachermap, te)
 }
 
@@ -58,9 +68,11 @@ func (r *Registrar) Enroll(e Enrollment) {
 	r.enrollments = append(r.enrollments, e)
 }
 
-func (r *NewRegistrar) Enrollnew(e Enrollnew) {
+
+func (r *NewRegistrar) Enrollnew(e EnrollNew) {
 	r.enroll = append(r.enroll, e)
 }
+
 
 func (r *Registrar) SetGrader(courseID int, g Grader) {
 	for i, e := range r.enrollments {
@@ -125,7 +137,8 @@ func (r *Registrar) DisplayStudents() {
 }
 
 func (r *Registrar) DisplayCourses() {
+	log.Println("Courses...")
 	for _, cr := range r.courses {
-		fmt.Printf("#%d : %s\n", cr.Id, cr.Name)
+		log.Printf("#%d : %s\n", cr.Id, cr.Name)
 	}
 }

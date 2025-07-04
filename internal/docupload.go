@@ -28,7 +28,7 @@ func (ts *TeacherService) UploadFile(
 			}
 
 			enrollWithDocs := EnrollnewWithDocs{
-				Enrollnew: e,
+				EnrollNew: e,
 				Documents: []Document{doc},
 			}
 

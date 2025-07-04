@@ -12,7 +12,7 @@ func TestMarkAttendance(t *testing.T) {
 	course := NewCourse(101, "Math")
 	grader := LetterGrader{}
 
-	enroll := NewEnrollnew(student, course, grader, 0, Attendance{}, teacher)
+	enroll := NewEnrollNew(student, course, grader, 0, Attendance{}, teacher)
 	registrar.Enrollnew(enroll)
 
 	date := time.Now()

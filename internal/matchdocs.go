@@ -1,6 +1,6 @@
 package internal
 
 type EnrollnewWithDocs struct {
-	Enrollnew
+	EnrollNew
 	Documents []Document
 }

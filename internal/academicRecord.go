@@ -1,10 +1,10 @@
 package internal
 
 type AcademicRecord struct {
-	StudentId int                           `json:"student_id"`
-	Semesters map[int]*SemesterResult       `json:"semesters"`
-	CGPA      float64                       `json:"cgpa"`
-	Status     string // "At Risk", "Dean's List", "Normal"
+	StudentId int                     `json:"student_id"`
+	Semesters map[int]*SemesterResult `json:"semesters"`
+	CGPA      float64                 `json:"cgpa"`
+	Status    string                  // "At Risk", "Dean's List", "Normal"
 }
 
 func NewAcademicRecord(studentId int) *AcademicRecord {
@@ -29,7 +29,7 @@ func (ar *AcademicRecord) calculateCGPA() {
 			gradePoints := semResult.getGradePoints(courseResult.Grade)
 			totalPoints += gradePoints * courseResult.Credits
 			totalCredits += courseResult.Credits
-			totalCredits ++
+			totalCredits++
 		}
 	}
 	if totalCredits > 0 {

@@ -2,36 +2,33 @@ package main
 
 import (
 	"fmt"
-	"oops/main/internal"
 	"oops/main/infrastructure"
-	// "oops/main/internal/admin"
+	"oops/main/internal"
+	"time"
 )
 
 var courseResults []internal.CourseResult
 
 func main() {
-	regitrar := internal.Registrar{}
 
-	regitrar.LoadCourses()
-	regitrar.DisplayCourses()
+	registrar := internal.Registrar{}
 
-	regitrar.LoadStudents()
-	regitrar.DisplayStudents()
-	
+	registrar.LoadCourses()
+	registrar.DisplayCourses()
+
+	registrar.LoadStudents()
+	registrar.DisplayStudents()
 	courseResults = infrastructure.LoadCourseResults()
 
 	fmt.Println("======================")
 	fmt.Println()
 
-	// Teacher 2 views Bob
-	// ts2 := &internal.TeacherService{
-	// 	Teacher:   teacher2,
-	// 	Registrar: registrar,
-	// }
-	// fmt.Println("Teacher:", teacher2.Name)
-	// ts2.DisplayAttendance(102, 1002)
-	// fmt.Println()
+	fmt.Print(courseResults)
+	Drive := internal.NewDrive(time.Date(2025, time.July, 4, 14, 30, 0, 0, time.UTC), time.Date(2025, time.July, 18, 14, 30, 0, 0, time.UTC), "Java Developer", 5.0, 50000, internal.Dream)
+	placReg := internal.PlacementRegistrar{}
+	comp := internal.Company{}
+	placReg.AddCompany(comp)
+	comp.AddDrive(Drive)
+	fmt.Println(placReg)
 
-	
 }
-

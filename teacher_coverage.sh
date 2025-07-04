@@ -14,9 +14,7 @@ TEACHER_FILES=(
     "exportResult_test.go"
     "UploadStudentMark_test.go"
     "attendance.go"
-    "attendance_test.go"
-    
-    
+    "attendance_test.go"    
 )
 
 echo "🧪 Running tests and generating coverage profile..."
