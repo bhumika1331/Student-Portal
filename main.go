@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"Student-portal/internal"
-	"Student-portal/infrastructure"
+	"oops/main/internal"
+	"oops/main/infrastructure"
 	// "oops/main/internal/admin"
 )
 
