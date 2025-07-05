@@ -4,11 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-
-	//"oops/main/internal"
-
-	//"oops/main/analytics"
-	//"oops/main/domain"
 	"os"
 )
 
@@ -16,18 +11,14 @@ type Registrar struct {
 	students    []Student
 	courses     []Course
 	enrollments []Enrollment
-	graders     map[int]Grader
 }
 
-func NewRegistrar() *Registrar {
-	return &Registrar{graders: make(map[int]Grader)}
-}
-
+// NewRegistrar creates a new Registrar instance
 type NewRegistrarS struct {
-	Registrar
-	teacher    []Teacher
-	teachermap []TeacherEnrollment
-	enroll     []EnrollNew
+	Registrar                      // Embedding Registrar to extend its functionality
+	teacher    []Teacher           // List of teachers
+	Teachermap []TeacherEnrollment // list of Map of teachers with their courses
+	enroll     []EnrollNew         // List of enrollments (students with courses) with additional teacher and attendance information
 }
 
 type RegistrarWithDocs struct {
@@ -48,27 +39,37 @@ func (r *RegistrarWithDocs) DisplayDocuments() {
 	}
 }
 
+// function to adppend teacher into register
 func (r *NewRegistrarS) AddTeacher(t Teacher) {
 	r.teacher = append(r.teacher, t)
 }
 
+// function to add teacher with course in teacher map
 func (r *NewRegistrarS) AddTeacherenrollment(te TeacherEnrollment) {
-	r.teachermap = append(r.teachermap, te)
+	r.Teachermap = append(r.Teachermap, te)
 }
 
+// function to add student into register
 func (r *Registrar) AddStudent(s Student) {
 	r.students = append(r.students, s)
 }
 
+// function to add course into register
 func (r *Registrar) AddCourse(c Course) {
 	r.courses = append(r.courses, c)
 }
 
+// old variable of enrollment which maintain only student with courses
 func (r *Registrar) Enroll(e Enrollment) {
 	r.enrollments = append(r.enrollments, e)
 }
 
 func (r *NewRegistrarS) Enrollnew(e EnrollNew) {
+	r.enroll = append(r.enroll, e)
+}
+
+// new variable to maintain enrollments with additional information like teacher and attendance
+func (r *NewRegistrarS) AddEnrollnew(e EnrollNew) {
 	r.enroll = append(r.enroll, e)
 }
 
@@ -126,6 +127,7 @@ func (r *Registrar) LoadStudents() {
 		student := NewStudent(sd.ID, sd.Name)
 		r.AddStudent(student)
 	}
+
 }
 
 func (r *Registrar) DisplayStudents() {

@@ -15,7 +15,7 @@ func TestUploadStudentMarksFromJSON(t *testing.T) {
 
 	// Add teacher and course mapping
 	registrar.NewRegistrarS.AddTeacher(teacher)
-	registrar.NewRegistrarS.AddTeacherenrollment(NewTeacherEnrollment(teacher, CreditCourse{Course: course, Credit: 4}))
+	registrar.NewRegistrarS.AddTeacherenrollment(NewTeacherEnrollment(teacher, CreditCourse{Course: course, Credits: 4}))
 
 	// Enroll students 1-50 in course 101 with teacher T1
 	for i := 1; i <= 50; i++ {

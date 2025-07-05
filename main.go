@@ -19,7 +19,6 @@ func main() {
 	registrar.DisplayStudents()
 
 	courseResults = infrastructure.LoadCourseResults()
-
 	fmt.Println("======================")
 	fmt.Println()
 

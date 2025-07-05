@@ -7,12 +7,11 @@ type Course struct {
 
 type CreditCourse struct {
 	Course
-	Credit int
+	Credits int
 }
 
-func NewCreditCourse(id int, name string, credits int) CreditCourse {
-	return CreditCourse{Course: Course{Id: id, Name: name}, Credit: credits}
-
+func NewCreditCourse(c Course, credits int) CreditCourse {
+	return CreditCourse{Course: c, Credits: credits}
 }
 
 func NewCourse(id int, name string) Course {

@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>internal: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">oops/main/internal/attendence.go (100.0%)</option>
+				
+				<option value="file1">oops/main/internal/course.go (100.0%)</option>
+				
+				<option value="file2">oops/main/internal/enroll.go (100.0%)</option>
+				
+				<option value="file3">oops/main/internal/registrar.go (100.0%)</option>
+				
+				<option value="file4">oops/main/internal/student.go (100.0%)</option>
+				
+				<option value="file5">oops/main/internal/teacher.go (100.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package internal
+
+import (
+        "time"
+)
+
+type Attendance struct {
+        Records map[time.Time]bool
+}
+
+// function to give attendence
+func MarkAttendance(attendance *Attendance, date time.Time, present bool) <span class="cov8" title="1">{
+        if attendance.Records == nil </span><span class="cov8" title="1">{
+                attendance.Records = make(map[time.Time]bool)
+        }</span>
+        <span class="cov8" title="1">attendance.Records[date] = present</span>
+}
+
+// function to give attendance to a student in a course by a teacher
+// This function will be called by the teacher to mark attendance for a student in a course.
+// need to check time data type parameter passing
+func Giveattendence(r *NewRegistrar, courseID int, studentID int, TeacherID int, attendence bool, time time.Time) bool <span class="cov8" title="1">{
+        for _, e := range r.enroll </span><span class="cov8" title="1">{
+                if e.Course.Id == courseID &amp;&amp; e.Student.ID() == studentID &amp;&amp; e.Teacher.ID() == TeacherID </span><span class="cov8" title="1">{
+                        //r.enroll[i].Attendence = attendence
+                        MarkAttendance(&amp;e.Attend, time, attendence)
+                        return true
+                }</span>
+        }
+        <span class="cov8" title="1">return false</span>
+}
+
+//fetching useful for both student and teacher
+
+func FetchAttendance(r *NewRegistrar, courseID int, studentID int, TeacherID int) (map[time.Time]bool, bool) <span class="cov8" title="1">{
+        for _, e := range r.enroll </span><span class="cov8" title="1">{
+                if e.Course.Id == courseID &amp;&amp; e.Student.ID() == studentID &amp;&amp; e.Teacher.ID() == TeacherID </span><span class="cov8" title="1">{
+                        return e.Attend.Records, true
+                }</span>
+        }
+        <span class="cov8" title="1">return nil, false</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package internal
+
+type Course struct {
+        Id   int
+        Name string
+}
+
+type CreditCourse struct {
+        Course
+        Credits int
+}
+
+func NewCreditCourse(c Course, credits int) CreditCourse <span class="cov8" title="1">{
+        return CreditCourse{Course: c, Credits: credits}
+}</span>
+
+func NewCourse(id int, name string) Course <span class="cov8" title="1">{
+        return Course{Id: id, Name: name}
+}</span>
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package internal
+
+type Enrollment struct {
+        Student
+        Course
+        Grader
+        score float64
+}
+
+type Enrollnew struct {
+        Enrollment            // Embedding Enrollment to include student, course, grader, and score
+        Attend     Attendance // Attendance records associated with the enrollment
+        Teacher               // Embedding Teacher to associate with the enrollment
+}
+
+// teacher with course
+type Teacherenrollment struct {
+        Teacher
+        CreditCourse
+}
+
+// function to map teacher with course
+func NewTeacherenrollment(t Teacher, c CreditCourse) Teacherenrollment <span class="cov8" title="1">{
+        return Teacherenrollment{Teacher: t, CreditCourse: c}
+}</span>
+
+// old function without teacher ,attandence
+func NewEnrollment(st Student, c Course, g Grader, score float64) Enrollment <span class="cov8" title="1">{
+        return Enrollment{Student: st, Course: c, Grader: g, score: score}
+}</span>
+
+// made enrool function to check with teacher maping with course (changes may be like checking in main while adding or passing teacher map from rigister to enroll function)
+// func Enroll(st Student, c Course, g Grader, score float64, att Attendance, t Teacher, teachermap []Teacherenrollment) (Enrollnew, bool) {
+func Enroll(oe Enrollment, att Attendance, t Teacher, teachermap []Teacherenrollment) (Enrollnew, bool) <span class="cov8" title="1">{
+        for _, te := range teachermap </span><span class="cov8" title="1">{
+                if te.Teacher.ID() == t.ID() &amp;&amp; te.Course.Id == oe.Course.Id </span><span class="cov8" title="1">{
+                        return Enrollnew{Enrollment: oe, Attend: att, Teacher: t}, true
+                }</span>
+        }
+        <span class="cov8" title="1">return Enrollnew{}, false</span>
+}
+
+/*
+func (e Enrollment) String() string {
+        r, _ := e.Grade(e)
+        return fmt.Sprintf("%s -&gt;  %s : %s", e.Student.Name(), e.Course.Name, r)
+}
+*/
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package internal
+
+import (
+        "encoding/json"
+        "fmt"
+        "log"
+        "os"
+)
+
+type Registrar struct {
+        students    []Student
+        courses     []Course
+        enrollments []Enrollment
+}
+
+// NewRegistrar creates a new Registrar instance
+type NewRegistrar struct {
+        Registrar                      // Embedding Registrar to extend its functionality
+        teacher    []Teacher           // List of teachers
+        Teachermap []Teacherenrollment // list of Map of teachers with their courses
+        enroll     []Enrollnew         // List of enrollments (students with courses) with additional teacher and attendance information
+}
+
+// function to adppend teacher into register
+func (r *NewRegistrar) AddTeacher(t Teacher) <span class="cov8" title="1">{
+        r.teacher = append(r.teacher, t)
+}</span>
+
+// function to add teacher with course in teacher map
+func (r *NewRegistrar) AddTeacherenrollment(te Teacherenrollment) <span class="cov8" title="1">{
+        r.Teachermap = append(r.Teachermap, te)
+}</span>
+
+// function to add student into register
+func (r *Registrar) AddStudent(s Student) <span class="cov8" title="1">{
+        r.students = append(r.students, s)
+}</span>
+
+// function to add course into register
+func (r *Registrar) AddCourse(c Course) <span class="cov8" title="1">{
+        r.courses = append(r.courses, c)
+}</span>
+
+// old variable of enrollment which maintain only student with courses
+func (r *Registrar) Enroll(e Enrollment) <span class="cov8" title="1">{
+        r.enrollments = append(r.enrollments, e)
+}</span>
+
+// new variable to maintain enrollments with additional information like teacher and attendance
+func (r *NewRegistrar) AddEnrollnew(e Enrollnew) <span class="cov8" title="1">{
+        r.enroll = append(r.enroll, e)
+}</span>
+
+func (r *Registrar) SetGrader(courseID int, g Grader) <span class="cov8" title="1">{
+        for i, e := range r.enrollments </span><span class="cov8" title="1">{
+                if e.Course.Id == courseID </span><span class="cov8" title="1">{
+                        r.enrollments[i].Grader = g
+                }</span>
+        }
+}
+
+func (r *Registrar) Enrollments() []Enrollment <span class="cov8" title="1">{
+        return r.enrollments
+}</span>
+
+type StudentData struct {
+        ID   int    `json:"id"`
+        Name string `json:"name"`
+}
+
+type courseData struct {
+        ID      int     `json:"id"`
+        Name    string  `json:"title"`
+        Credits float64 `json:"credits"`
+}
+
+func (regis *Registrar) LoadCourses() <span class="cov8" title="1">{
+        var coursesData []courseData
+        data, err := os.ReadFile("courses.json")
+        if err != nil </span><span class="cov8" title="1">{
+                log.Fatal("Failed to read courses.json:", err)
+        }</span>
+        <span class="cov8" title="1">err = json.Unmarshal(data, &amp;coursesData)
+        if err != nil </span><span class="cov8" title="1">{
+                log.Fatal("Failed to unmarshal courses:", err)
+        }</span>
+        <span class="cov8" title="1">for _, course := range coursesData </span><span class="cov8" title="1">{
+                regis.AddCourse(NewCourse(course.ID, course.Name))
+        }</span>
+}
+
+func (r *Registrar) LoadStudents() <span class="cov8" title="1">{
+        var students []StudentData
+        data, err := os.ReadFile("students.json")
+        if err != nil </span><span class="cov8" title="1">{
+                log.Fatal("Failed to read students.json:", err)
+        }</span>
+
+        <span class="cov8" title="1">err = json.Unmarshal(data, &amp;students)
+        if err != nil </span><span class="cov8" title="1">{
+                log.Fatal("Failed to unmarshal students:", err)
+        }</span>
+        <span class="cov8" title="1">r.students = make([]Student, 0, len(students))
+        for _, sd := range students </span><span class="cov8" title="1">{
+                student := NewStudent(sd.ID, sd.Name)
+                r.AddStudent(student)
+        }</span>
+}
+
+func (r *Registrar) DisplayStudents() <span class="cov8" title="1">{
+        for _, sd := range r.students </span><span class="cov8" title="1">{
+                fmt.Printf("#%d : %s\n", sd.ID(), sd.Name())
+        }</span>
+}
+
+func (r *Registrar) DisplayCourses() <span class="cov8" title="1">{
+        for _, cr := range r.courses </span><span class="cov8" title="1">{
+                fmt.Printf("#%d : %s\n", cr.Id, cr.Name)
+        }</span>
+}
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package internal
+
+type Student struct {
+        id   int
+        name string
+}
+
+func NewStudent(id int, name string) Student <span class="cov8" title="1">{
+        if id &lt;= 0 </span><span class="cov8" title="1">{
+                panic("Student id must be positive")</span>
+        }
+        <span class="cov8" title="1">return Student{id: id, name: name}</span>
+}
+
+func (s Student) Name() string <span class="cov8" title="1">{ return s.name }</span>
+func (s Student) ID() int      <span class="cov8" title="1">{ return s.id }</span>
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package internal
+
+type Teacher struct {
+        id   int
+        Name string
+}
+
+func (t Teacher) ID() int <span class="cov8" title="1">{ return t.id }</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

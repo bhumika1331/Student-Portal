@@ -1,9 +1,8 @@
 package internal
 
 type Teacher struct {
-	ID    string
-	Name  string
-	Email string
+	ID   string
+	Name string
 }
 
 // TID returns the Teacher's ID.
@@ -12,7 +11,7 @@ func (t Teacher) TID() string {
 	return t.ID
 }
 
-//Constructor for consistency
+// Constructor for consistency
 func NewTeacher(id, name string) Teacher {
 	return Teacher{
 		ID:   id,

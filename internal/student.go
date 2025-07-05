@@ -1,8 +1,6 @@
 package internal
 
-import (
-	"fmt"
-)
+import "fmt"
 
 type Student struct {
 	id   int
