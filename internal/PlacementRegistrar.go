@@ -11,36 +11,49 @@ type PlacementRegistrar struct {
 }
 
 type ReportByStudent struct {
-	applicant        *Applicant
-	offersRecived    []*Application
-	eligibileRoles   []*Drive
-	finalOffer       *Drive
-	ctcForFinalOffer int
+	Applicant        *Applicant
+	OffersRecived    []*Application
+	EligibileRoles   []*Drive
+	FinalOffer       *Drive
+	CtcForFinalOffer int
 }
 
 type ReportByDrive struct {
-	drive                *Drive
-	company              *Company
-	driveCTC             int
-	noOfSelectedStudents int
+	Drive                *Drive
+	Company              *Company
+	DriveCTC             int
+	NoOfSelectedStudents int
 }
 
 type FullPlacementReport struct {
-	allComapanies         []*Company
-	totalComapanies       int
-	totalOffersMade       int
-	allOffersMade         []*Application
-	totalOffersByCatagory map[JobCategory]int
+	AllComapanies         []*Company
+	TotalComapanies       int
+	TotalOffersMade       int
+	AllOffersMade         []*Application
+	TotalOffersByCatagory map[JobCategory]int
+}
+
+//Getters
+func (pr PlacementRegistrar) GetCompanies() []*Company {
+	return pr.companies;
+}
+
+func (pr PlacementRegistrar) GetApplications() []*Application {
+	return pr.applications;
+}
+
+func (pr PlacementRegistrar) GetApplicants() []*Applicant {
+	return pr.applicants;
 }
 
 func (pr PlacementRegistrar) GenerateReportByDrive() ReportByDrive {
 	var reportByDrive ReportByDrive
 	for _, c := range pr.companies {
 		for _, d := range c.Drives() {
-			reportByDrive.company = c
-			reportByDrive.drive = d
-			reportByDrive.driveCTC = d.CTC()
-			reportByDrive.noOfSelectedStudents = len(d.getSelectedApplications())
+			reportByDrive.Company = c
+			reportByDrive.Drive = d
+			reportByDrive.DriveCTC = d.CTC()
+			reportByDrive.NoOfSelectedStudents = len(d.getSelectedApplications())
 		}
 	}
 	return reportByDrive
@@ -50,29 +63,29 @@ func (pr PlacementRegistrar) GenerateReportByStudent() []ReportByStudent {
 	var ReportsByStudent []ReportByStudent
 	for _, e := range pr.applicants {
 		report := ReportByStudent{}
-		report.applicant = e
+		report.Applicant = e
 		for _, d := range pr.AllDrives() {
 			if d.eligibility.checkEligibility(e) {
-				report.eligibileRoles = append(report.eligibileRoles, d)
+				report.EligibileRoles = append(report.EligibileRoles, d)
 			}
 		}
 		for _, a := range pr.applications {
 			if a.Applicant.ID() == e.ID() && a.status == Selected {
-				report.offersRecived = append(report.offersRecived, a)
+				report.OffersRecived = append(report.OffersRecived, a)
 			}
 		}
-		if len(report.offersRecived) > 0 {
-			firstOfferDriveID := report.offersRecived[0].driveId
+		if len(report.OffersRecived) > 0 {
+			firstOfferDriveID := report.OffersRecived[0].driveId
 			for _, d := range pr.AllDrives() {
 				if d.ID() == firstOfferDriveID {
-					report.finalOffer = d
-					report.ctcForFinalOffer = d.CTC()
+					report.FinalOffer = d
+					report.CtcForFinalOffer = d.CTC()
 					break
 				}
 			}
 		} else {
-			report.finalOffer = nil
-			report.ctcForFinalOffer = 0
+			report.FinalOffer = nil
+			report.CtcForFinalOffer = 0
 		}
 		// report.finalOffer = e.DrivesAppliedFor()[0]
 		// report.ctcForFinalOffer = report.finalOffer.CTC()
@@ -84,14 +97,14 @@ func (pr PlacementRegistrar) GenerateReportByStudent() []ReportByStudent {
 func (pr PlacementRegistrar) GenerateFullReport() FullPlacementReport {
 	var report FullPlacementReport
 	allOffersBycatagory := make(map[JobCategory]int)
-	report.allComapanies = pr.companies
-	report.totalComapanies = len(report.allComapanies)
+	report.AllComapanies = pr.companies
+	report.TotalComapanies = len(report.AllComapanies)
 	for _, a := range pr.applications {
 		if a.Status() == Selected {
-			report.allOffersMade = append(report.allOffersMade, a)
+			report.AllOffersMade = append(report.AllOffersMade, a)
 		}
 	}
-	report.totalOffersMade = len(report.allOffersMade)
+	report.TotalOffersMade = len(report.AllOffersMade)
 	for _, d := range pr.AllDrives() {
 		jc := d.JobCategory()
 		switch jc {
@@ -105,7 +118,7 @@ func (pr PlacementRegistrar) GenerateFullReport() FullPlacementReport {
 			allOffersBycatagory[Marquee]++
 		}
 	}
-	report.totalOffersByCatagory = allOffersBycatagory
+	report.TotalOffersByCatagory = allOffersBycatagory
 	return report
 }
 
@@ -145,8 +158,7 @@ func (pr *PlacementRegistrar) UpdateCompany(UpdatedCompany *Company) error {
 	return fmt.Errorf("company with id %d not found to update", UpdatedCompany.id)
 }
 
-func (pr *PlacementRegistrar) AddDriveToCompany(companyID int, drive *Drive) error {
-	for i := range pr.companies {
+func (pr *PlacementRegistrar) AddDriveToCompany(companyID int, drive *Drive) error { for i := range pr.companies {
 		if pr.companies[i].id == companyID {
 			pr.companies[i].drives = append(pr.companies[i].drives, drive)
 			return nil
