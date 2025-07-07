@@ -2,3 +2,6 @@ scripts/
 coverage.out
 placement_coverage.html
 student_analytics_coverage.sh
+combined_output.txt
+internal/combined_output.txt
+makeoneFile.sh
