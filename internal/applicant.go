@@ -52,7 +52,6 @@ func (a *Applicant) SetDrivesAppliedFor(drives []*Drive) {
 
 func (a *Applicant) CompaniesAppliedFor(pr *PlacementRegistrar) []string {
 	companySet := make(map[string]struct{})
-
 	for _, app := range pr.applications {
 		if app.Applicant.Student.id == a.Student.id {
 			for _, company := range pr.companies {
