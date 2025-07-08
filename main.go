@@ -399,7 +399,7 @@ func demonstrateAnalytics() {
 	}
 
 	// Load and process placement offers from JSON
-	offers, err := internal.LoadOffers("placementOffers.json")
+	offers, err := internal.LoadOffers("placement_offers.json")
 	if err != nil {
 		fmt.Printf("Error loading placement offers: %v\n", err)
 		return
