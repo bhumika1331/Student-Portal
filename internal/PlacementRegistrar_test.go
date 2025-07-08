@@ -587,15 +587,21 @@ func TestPlacementRegistrar_GenerateFullReport(t *testing.T) {
 	t.Run("should count offers by category", func(t *testing.T) {
 		a1 := NewApplicant(Student{id: 100}, AcademicRecord{})
 		a2 := NewApplicant(Student{id: 101}, AcademicRecord{})
+		a3 := NewApplicant(Student{id: 102}, AcademicRecord{})
+		a4 := NewApplicant(Student{id: 103}, AcademicRecord{})
 		d1 := NewDrive(time.Now(), time.Now(), "Dev1", 8.0, 100, Dream)
-		d2 := NewDrive(time.Now(), time.Now(), "Dev2", 8.0, 100, Day)
+		d2 := NewDrive(time.Now(), time.Now(), "dev2", 8.0, 100, Day)
+		d3 := NewDrive(time.Now(), time.Now(), "Dev3", 8.0, 100, SuperDream)
+		d4 := NewDrive(time.Now(), time.Now(), "Dev4", 8.0, 100, Marquee)
 		app1 := &Application{id: 1, driveId: d1.ID(), Applicant: a1, status: Selected}
 		app2 := &Application{id: 2, driveId: d2.ID(), Applicant: a2, status: Selected}
+		app3 := &Application{id: 3, driveId: d3.ID(), Applicant: a3, status: Selected}
+		app4 := &Application{id: 4, driveId: d4.ID(), Applicant: a4, status: Selected}
 		c := &Company{id: 100, drives: []*Drive{d1, d2}}
 		pr := &PlacementRegistrar{
-			applicants:   []*Applicant{a1, a2},
+			applicants:   []*Applicant{a1, a2, a3, a4},
 			companies:    []*Company{c},
-			applications: []*Application{app1, app2},
+			applications: []*Application{app1, app2, app3, app4},
 		}
 
 		rep := pr.GenerateFullReport()
@@ -680,7 +686,7 @@ func TestPlacementRegistrar_GenerateReportByStudent(t *testing.T) {
 
 		report := reports[0]
 		if len(report.EligibileRoles) != 2 {
-			t.Errorf("Expected 2 eligible roles, got %d", len(report.eligibileRoles))
+			t.Errorf("Expected 2 eligible roles, got %d", len(report.EligibileRoles))
 		}
 	})
 

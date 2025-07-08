@@ -147,11 +147,11 @@ func TestEligibility_ChangeRequirement(t *testing.T) {
 	})
 }
 
-func TestEligibility_checkEligibility(t *testing.T) {
+func TestEligibility_CheckEligibility(t *testing.T) {
 	t.Run("should pass for eligible applicant", func(t *testing.T) {
 		el := NewEligibility(8.0)
 		a := NewApplicant(Student{id: 1, name: "Bob"}, AcademicRecord{CGPA: 8.1})
-		if !el.checkEligibility(a) {
+		if !el.CheckEligibility(a) {
 			t.Error("Eligibility check should pass")
 		}
 	})
@@ -159,7 +159,7 @@ func TestEligibility_checkEligibility(t *testing.T) {
 	t.Run("should fail for ineligible applicant", func(t *testing.T) {
 		el := NewEligibility(8.0)
 		a := NewApplicant(Student{id: 2}, AcademicRecord{CGPA: 7.0})
-		if el.checkEligibility(a) {
+		if el.CheckEligibility(a) {
 			t.Error("Eligibility check should fail")
 		}
 	})
@@ -167,7 +167,7 @@ func TestEligibility_checkEligibility(t *testing.T) {
 	t.Run("should pass for exact GPA match", func(t *testing.T) {
 		el := NewEligibility(8.0)
 		a := NewApplicant(Student{id: 3}, AcademicRecord{CGPA: 8.0})
-		if el.checkEligibility(a) {
+		if el.CheckEligibility(a) {
 			t.Error("Eligibility check should fail for exact match (requirement > CGPA)")
 		}
 	})
@@ -175,7 +175,7 @@ func TestEligibility_checkEligibility(t *testing.T) {
 	t.Run("should handle zero requirement", func(t *testing.T) {
 		el := NewEligibility(0.0)
 		a := NewApplicant(Student{id: 4}, AcademicRecord{CGPA: 5.0})
-		if !el.checkEligibility(a) {
+		if !el.CheckEligibility(a) {
 			t.Error("Zero requirement should pass for any positive CGPA")
 		}
 	})
@@ -183,7 +183,7 @@ func TestEligibility_checkEligibility(t *testing.T) {
 	t.Run("should handle zero CGPA", func(t *testing.T) {
 		el := NewEligibility(8.0)
 		a := NewApplicant(Student{id: 5}, AcademicRecord{CGPA: 0.0})
-		if el.checkEligibility(a) {
+		if el.CheckEligibility(a) {
 			t.Error("Should fail for zero CGPA")
 		}
 	})
@@ -191,7 +191,7 @@ func TestEligibility_checkEligibility(t *testing.T) {
 	t.Run("should handle negative values", func(t *testing.T) {
 		el := NewEligibility(-1.0)
 		a := NewApplicant(Student{id: 6}, AcademicRecord{CGPA: 5.0})
-		if !el.checkEligibility(a) {
+		if !el.CheckEligibility(a) {
 			t.Error("Negative requirement should pass for positive CGPA")
 		}
 	})
@@ -203,7 +203,7 @@ func TestEligibility_checkEligibility(t *testing.T) {
 				t.Error("Expected panic for nil applicant")
 			}
 		}()
-		el.checkEligibility(nil)
+		el.CheckEligibility(nil)
 	})
 }
 

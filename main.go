@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"os"
+	"encoding/json"
 
 	"oops/main/infrastructure"
 	"oops/main/internal"
@@ -19,8 +21,10 @@ func main() {
 	demonstrateAcademicManagement()
 
 	// Phase 3: Teacher Services and Document Management
-	demonstrateTeacherServices()
+	//demonstrat
+	//eTeacherServices()
 
+DemoTeacherServices()
 	// Phase 4: Placement Management
 	demonstratePlacementSystem()
 
@@ -171,12 +175,13 @@ func demonstrateGPACalculationWithImportedData(courseResults []internal.CourseRe
 	}
 }
 
+/*
 func demonstrateTeacherServices() {
 	fmt.Println("\n3. TEACHER SERVICES - Document Upload and Mark Management")
 	fmt.Println(strings.Repeat("=", 60))
 
 	registrar := &internal.RegistrarWithDocs{
-		NewRegistrarS: &internal.NewRegistrarS{},
+		NewRegistrarSS: &internal.NewRegistrarS{},
 	}
 
 	// Load students and courses from JSON
@@ -248,6 +253,96 @@ func demonstrateTeacherServices() {
 
 	registrar.DisplayDocuments()
 }
+*/
+
+func DemoTeacherServices() {
+	fmt.Println("\n3. TEACHER SERVICES - Document Upload and Mark Management")
+	fmt.Println(strings.Repeat("=", 60))
+
+	// --- Setup Demo Data ---
+	studentID := 1001
+	courseID := 101
+	teacherID := "T001"
+
+	student := internal.NewStudent(studentID, "Alice")
+	course := internal.NewCourse(courseID, "Math")
+	teacher := internal.NewTeacher(teacherID, "Prof. Smith")
+	att := internal.Attendance{Records: make(map[time.Time]bool)}
+	gr := internal.PercentageGrader{}
+
+	reg := &internal.NewRegistrarS{}
+	enroll := internal.NewEnrollNew(student, course, gr, 0.85, att, teacher)
+	reg.Enrollnew(enroll)
+	reg.AddTeacher(teacher)
+	regWithDocs := &internal.RegistrarWithDocs{NewRegistrarS: reg}
+	ts := &internal.TeacherService{Registrar: regWithDocs, Teacher: teacher}
+
+	fmt.Println("==== Teacher Module Demo ====")
+
+	// --- 1. Upload a Single Mark ---
+	fmt.Println("\n--- Upload Single Mark ---")
+	if err := ts.UploadStudentMark(courseID, studentID, 0.92); err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// --- 2. Upload Marks in Bulk (JSON) ---
+	fmt.Println("\n--- Upload Bulk Marks (JSON) ---")
+	bulkMarks := []internal.StudentMarkInput{
+		{CourseID: courseID, StudentID: studentID, Score: 0.88},
+		{CourseID: courseID, StudentID: 9999, Score: 0.75}, // Invalid student for demo
+	}
+	jsonData, _ := json.Marshal(bulkMarks)
+	if err := ts.UploadStudentMarksFromJSON(jsonData); err != nil {
+		fmt.Println("Bulk upload error(s):", err)
+	} else {
+		fmt.Println("Bulk upload succeeded.")
+	}
+
+	// --- 3. Upload a File for the Student ---
+	fmt.Println("\n--- Upload File ---")
+	fileContent := []byte("Demo assignment content")
+	err := ts.UploadFile(courseID, studentID, "Assignment 1", "assignment1.pdf", "application/pdf", fileContent)
+	if err != nil {
+		fmt.Println("File upload error:", err)
+	}
+
+	// --- 4. Mark and Display Attendance ---
+	fmt.Println("\n--- Mark and Display Attendance ---")
+	now := time.Now()
+	internal.Giveattendence(ts.Registrar.NewRegistrarS, courseID, studentID, teacherID, true, now)
+	ts.DisplayAttendance(courseID, studentID)
+
+	// --- 5. Get and Export Course Results ---
+	fmt.Println("\n--- Get and Export Course Results ---")
+	results, err := ts.GetCourseResults(courseID)
+	if err != nil {
+		fmt.Println("GetCourseResults error:", err)
+	} else {
+		fmt.Println("Results:")
+		for _, r := range results {
+			fmt.Printf("Student: %s, Score: %.2f, Grade: %s\n", r.StudentName, r.Score, r.Grade)
+		}
+		// Export as JSON
+		jsonOut, err := infrastructure.ExportResultsAsJSON(results)
+		if err == nil {
+			_ = os.WriteFile("demo_results.json", jsonOut, 0644)
+			fmt.Println("Exported results to demo_results.json")
+		}
+		// Export as CSV
+		csvOut, err := infrastructure.ExportResultsAsCSV(results)
+		if err == nil {
+			_ = os.WriteFile("demo_results.csv", csvOut, 0644)
+			fmt.Println("Exported results to demo_results.csv")
+		}
+	}
+
+	// --- 6. Show Uploaded Documents ---
+	fmt.Println("\n--- Show Uploaded Documents ---")
+	ts.Registrar.DisplayDocuments()
+
+	fmt.Println("\n==== Demo Complete ====")
+}
+
 
 func demonstratePlacementSystem() {
 	fmt.Println("\n4. PLACEMENT MANAGEMENT - Companies, Drives, and Applications")
