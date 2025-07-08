@@ -1,10 +1,13 @@
 [
-  {"id": 1, "title": "Mathematics I", "credits": 4.0},
-  {"id": 2, "title": "Physics I", "credits": 3.0},
-  {"id": 3, "title": "Chemistry I", "credits": 3.0},
-  {"id": 4, "title": "Programming I", "credits": 4.0},
-  {"id": 5, "title": "English", "credits": 2.0},
-  {"id": 6, "title": "Data Structures", "credits": 4.0},
-  {"id": 7, "title": "Database Systems", "credits": 3.0},
-  {"id": 8, "title": "Computer Networks", "credits": 3.0}
+  {"id": 101, "title": "Data Structures and Algorithms", "credits": 4.0},
+  {"id": 102, "title": "Operating Systems", "credits": 3.0},
+  {"id": 103, "title": "Database Management Systems", "credits": 4.0},
+  {"id": 104, "title": "Computer Networks", "credits": 3.0},
+  {"id": 105, "title": "Software Engineering", "credits": 3.0},
+  {"id": 106, "title": "Machine Learning", "credits": 4.0},
+  {"id": 107, "title": "Artificial Intelligence", "credits": 4.0},
+  {"id": 108, "title": "Web Development", "credits": 3.0},
+  {"id": 109, "title": "Mobile Development", "credits": 3.0},
+  {"id": 110, "title": "Cloud Computing", "credits": 4.0}
 ]
+

@@ -33,17 +33,21 @@ type FullPlacementReport struct {
 	TotalOffersByCatagory map[JobCategory]int
 }
 
-//Getters
+// Getters
 func (pr PlacementRegistrar) GetCompanies() []*Company {
-	return pr.companies;
+	return pr.companies
 }
 
 func (pr PlacementRegistrar) GetApplications() []*Application {
-	return pr.applications;
+	return pr.applications
 }
 
 func (pr PlacementRegistrar) GetApplicants() []*Applicant {
-	return pr.applicants;
+	return pr.applicants
+}
+
+func (pr *PlacementRegistrar) AddApplicant(applicant *Applicant) {
+	pr.applicants = append(pr.applicants, applicant)
 }
 
 func (pr PlacementRegistrar) GenerateReportByDrive() ReportByDrive {
@@ -65,12 +69,12 @@ func (pr PlacementRegistrar) GenerateReportByStudent() []ReportByStudent {
 		report := ReportByStudent{}
 		report.Applicant = e
 		for _, d := range pr.AllDrives() {
-			if d.eligibility.checkEligibility(e) {
+			if d.eligibility.CheckEligibility(e) {
 				report.EligibileRoles = append(report.EligibileRoles, d)
 			}
 		}
 		for _, a := range pr.applications {
-			if a.Applicant.ID() == e.ID() && a.status == Selected {
+			if a.Applicant.ID() == e.ID() && a.Status() == Selected {
 				report.OffersRecived = append(report.OffersRecived, a)
 			}
 		}
@@ -158,7 +162,8 @@ func (pr *PlacementRegistrar) UpdateCompany(UpdatedCompany *Company) error {
 	return fmt.Errorf("company with id %d not found to update", UpdatedCompany.id)
 }
 
-func (pr *PlacementRegistrar) AddDriveToCompany(companyID int, drive *Drive) error { for i := range pr.companies {
+func (pr *PlacementRegistrar) AddDriveToCompany(companyID int, drive *Drive) error {
+	for i := range pr.companies {
 		if pr.companies[i].id == companyID {
 			pr.companies[i].drives = append(pr.companies[i].drives, drive)
 			return nil
@@ -215,7 +220,7 @@ func (pr *PlacementRegistrar) ApplyForDrive(studentID, companyID, driveID int) e
 		return fmt.Errorf("applicant applied already")
 	}
 
-	if !drive.eligibility.checkEligibility(applicant) {
+	if !drive.eligibility.CheckEligibility(applicant) {
 		return fmt.Errorf("applicant is not meet the criteria ")
 	}
 

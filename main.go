@@ -1,11 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
 	"strings"
 	"time"
+
 	"oops/main/infrastructure"
 	"oops/main/internal"
 )
@@ -16,7 +15,7 @@ func main() {
 	// Phase 1: Setup and Basic Entity Creation
 	demonstrateBasicSetup()
 
-	// Phase 2: Academic Management
+	// Phase 2: Academic Management  
 	demonstrateAcademicManagement()
 
 	// Phase 3: Teacher Services and Document Management
@@ -35,119 +34,76 @@ func main() {
 }
 
 func demonstrateBasicSetup() {
-	fmt.Println("1. BASIC SETUP - Creating Students, Courses, and Teachers")
+	fmt.Println("1. BASIC SETUP - Loading Data and Creating System")
 	fmt.Println(strings.Repeat("=", 50))
 
-	// Create students
-	students := []internal.Student{
-		internal.NewStudent(1, "Alice Johnson"),
-		internal.NewStudent(2, "Bob Smith"),
-		internal.NewStudent(3, "Charlie Brown"),
-		internal.NewStudent(4, "Diana Prince"),
-		internal.NewStudent(5, "Eve Wilson"),
-	}
+	// Setup registrar and load data from JSON files
+	registrar := &internal.NewRegistrarS{}
+	
+	// Load students from JSON file
+	registrar.LoadStudents()
+	fmt.Println("✅ Loaded students from students.json")
+	
+	// Load courses from JSON file  
+	registrar.LoadCourses()
+	fmt.Println("✅ Loaded courses from courses.json")
 
-	fmt.Println("Created Students:")
-	for _, s := range students {
-		s.Display()
-	}
-
-	// Create courses
-	courses := []internal.Course{
-		internal.NewCourse(101, "Data Structures"),
-		internal.NewCourse(102, "Operating Systems"),
-		internal.NewCourse(103, "Database Systems"),
-		internal.NewCourse(104, "Computer Networks"),
-	}
-
-	// Create credit courses
-	creditCourses := []internal.CreditCourse{
-		internal.NewCreditCourse(courses[0], 4),
-		internal.NewCreditCourse(courses[1], 3),
-		internal.NewCreditCourse(courses[2], 4),
-		internal.NewCreditCourse(courses[3], 3),
-	}
-
-	fmt.Println("\nCreated Courses:")
-	for _, c := range creditCourses {
-		fmt.Printf("Course %d: %s (%d credits)\n", c.Id, c.Name, c.Credits)
-	}
-
-	// Create teachers
+	// Only hardcode teachers (not imported from JSON)
 	teachers := []internal.Teacher{
 		internal.NewTeacher("T001", "Dr. Alan Turing"),
-		internal.NewTeacher("T002", "Dr. Ada Lovelace"),
+		internal.NewTeacher("T002", "Dr. Ada Lovelace"), 
 		internal.NewTeacher("T003", "Dr. Grace Hopper"),
+		internal.NewTeacher("T004", "Dr. Tim Berners-Lee"),
+		internal.NewTeacher("T005", "Dr. Linus Torvalds"),
+		internal.NewTeacher("T006", "Dr. Margaret Hamilton"),
+		internal.NewTeacher("T007", "Dr. Donald Knuth"),
+		internal.NewTeacher("T008", "Dr. Barbara Liskov"),
+		internal.NewTeacher("T009", "Dr. John McCarthy"),
+		internal.NewTeacher("T010", "Dr. Edsger Dijkstra"),
 	}
 
 	fmt.Println("\nCreated Teachers:")
 	for _, t := range teachers {
+		registrar.AddTeacher(t)
 		fmt.Printf("Teacher %s: %s\n", t.TID(), t.Name)
 	}
 
-	// Setup registrar
-	registrar := &internal.NewRegistrarS{}
-	
-	// Add students to registrar
-	for _, s := range students {
-		registrar.AddStudent(s)
-	}
+	// Display loaded data summary
+	registrar.DisplayStudents()
+	registrar.DisplayCourses()
 
-	// Add courses to registrar
-	for _, c := range courses {
-		registrar.AddCourse(c)
-	}
-
-	// Add teachers to registrar
-	for _, t := range teachers {
-		registrar.AddTeacher(t)
-	}
-
-	// Create teacher-course mappings
-	teacherEnrollments := []internal.TeacherEnrollment{
-		internal.NewTeacherEnrollment(teachers[0], creditCourses[0]),
-		internal.NewTeacherEnrollment(teachers[1], creditCourses[1]),
-		internal.NewTeacherEnrollment(teachers[2], creditCourses[2]),
-	}
-
-	for _, te := range teacherEnrollments {
-		registrar.AddTeacherenrollment(te)
-	}
-
-	fmt.Println("\nRegistrar setup complete!")
+	fmt.Println("\nRegistrar setup complete with imported data!")
 }
 
 func demonstrateAcademicManagement() {
-	fmt.Println("\n2. ACADEMIC MANAGEMENT - Enrollment, Attendance, and Grading")
+	fmt.Println("\n2. ACADEMIC MANAGEMENT - Using Imported Course Results")
 	fmt.Println(strings.Repeat("=", 60))
 
-	// Setup basic entities (simplified for demo)
-	student1 := internal.NewStudent(1, "Alice Johnson")
-	student2 := internal.NewStudent(2, "Bob Smith")
-	course1 := internal.NewCourse(101, "Data Structures")
-	//teacher1 := internal.NewTeacher("T001", "Dr. Alan Turing")
-	// Note used for some reason
+	// Load course results from JSON file (not hardcoded)
+	courseResults := infrastructure.LoadCourseResults()
+	fmt.Printf("✅ Loaded %d course results from courseResults.json\n", len(courseResults))
 
-	// Create graders
+	// Demo grading systems with sample enrollments
+	student1 := internal.NewStudent(1, "Alice Johnson") 
+	course1 := internal.NewCourse(101, "Data Structures")
+
 	letterGrader := internal.LetterGrader{}
 	percentageGrader := internal.PercentageGrader{}
 	passFailGrader := internal.PassFailGrader{PassMark: 0.6}
 
-	// Create enrollments - Fixed: Use 0-10 scale for letter grader
 	enrollment1 := internal.NewEnrollment(student1, course1, letterGrader, 8.5)
-	enrollment2 := internal.NewEnrollment(student2, course1, percentageGrader, 0.75)
+	enrollment2 := internal.NewEnrollment(student1, course1, percentageGrader, 0.75)
 
-	// Test grading
 	grade1, _ := letterGrader.Grade(enrollment1)
-	grade2, _ := percentageGrader.Grade(enrollment2)
+	grade2, _ := percentageGrader.Grade(enrollment2) 
 	grade3, _ := passFailGrader.Grade(enrollment1)
 
-	fmt.Printf("Grading Results:\n")
-	fmt.Printf("- %s in %s: %s (Letter Grade)\n", student1.Name(), course1.Name, grade1)
-	fmt.Printf("- %s in %s: %s (Percentage)\n", student2.Name(), course1.Name, grade2)
-	fmt.Printf("- %s Pass/Fail status: %s\n", student1.Name(), grade3)
+	fmt.Printf("\nGrading System Demo:\n")
+	fmt.Printf("- Letter Grade (8.5/10): %s\n", grade1)
+	fmt.Printf("- Percentage Grade (0.75): %s\n", grade2)
+	fmt.Printf("- Pass/Fail Status: %s\n", grade3)
 
-	// Attendance management
+	// Attendance management demo
 	attendance := internal.Attendance{Records: make(map[time.Time]bool)}
 	today := time.Now()
 	yesterday := today.AddDate(0, 0, -1)
@@ -155,7 +111,7 @@ func demonstrateAcademicManagement() {
 	internal.MarkAttendance(&attendance, today, true)
 	internal.MarkAttendance(&attendance, yesterday, false)
 
-	fmt.Println("\nAttendance Records:")
+	fmt.Println("\nAttendance Demo:")
 	for date, present := range attendance.Records {
 		status := "Absent"
 		if present {
@@ -164,82 +120,111 @@ func demonstrateAcademicManagement() {
 		fmt.Printf("- %s: %s\n", date.Format("2006-01-02"), status)
 	}
 
-	// Academic records and GPA calculation
-	demonstrateGPACalculation()
+	// Process imported course results into academic records
+	demonstrateGPACalculationWithImportedData(courseResults)
 }
 
-func demonstrateGPACalculation() {
-	fmt.Println("\n--- GPA Calculation Demo ---")
+func demonstrateGPACalculationWithImportedData(courseResults []internal.CourseResult) {
+	fmt.Println("\n--- GPA Calculation with Imported Data ---")
 
-	// Create academic record
-	record := internal.NewAcademicRecord(1)
-
-	// Add course results
-	courseResults := []internal.CourseResult{
-		internal.NewCourseResult(1, 101, "Data Structures", internal.A, 1, 4.0),
-		internal.NewCourseResult(1, 102, "Operating Systems", internal.Bplus, 1, 3.0),
-		internal.NewCourseResult(1, 103, "Database Systems", internal.Aplus, 2, 4.0),
-	}
-
-	for _, cr := range courseResults {
-		record.AddResult(cr, cr.Semester)
-	}
-
-	fmt.Printf("Student Academic Record:\n")
-	fmt.Printf("- Student ID: %d\n", record.StudentId)
-	fmt.Printf("- CGPA: %.2f\n", record.CGPA)
-	fmt.Printf("- Status: %s\n", record.Status)
-
-	// GPA Calculator demo
-	calculator := internal.NewGPACalculator()
+	// Create academic records from imported course results
+	records := make(map[int]*internal.AcademicRecord)
 	
-	semesterGPAs := []internal.StudentGPA{
-		{Student: internal.NewStudent(1, "Alice"), Semester: 1, Gpa: 8.5},
-		{Student: internal.NewStudent(1, "Alice"), Semester: 2, Gpa: 8.2},
-		{Student: internal.NewStudent(1, "Alice"), Semester: 3, Gpa: 8.8},
+	for _, cr := range courseResults {
+		if records[cr.StudentId] == nil {
+			records[cr.StudentId] = internal.NewAcademicRecord(cr.StudentId)
+		}
+		records[cr.StudentId].AddResult(cr, cr.Semester)
 	}
 
-	overallGPA := calculator.CalculateOverallGPA(semesterGPAs)
-	status := calculator.DetermineStatus(overallGPA)
+	// Show sample academic records
+	fmt.Printf("Sample Academic Records from Imported Data:\n")
+	count := 0
+	for studentID, record := range records {
+		if count >= 5 { // Show first 5 students
+			break
+		}
+		fmt.Printf("Student %d: CGPA=%.2f, Status=%s\n", 
+			studentID, record.CGPA, record.Status)
+		count++
+	}
 
-	fmt.Printf("\nGPA Calculation Results:\n")
-	fmt.Printf("- Overall GPA: %.2f\n", overallGPA)
-	fmt.Printf("- Academic Status: %s\n", status)
+	// GPA Calculator demo with real data
+	calculator := internal.NewGPACalculator()
+	if len(records) > 0 {
+		// Use first student's data
+		for studentID, record := range records {
+			student := internal.NewStudent(studentID, fmt.Sprintf("Student %d", studentID))
+			semesterGPAs := []internal.StudentGPA{
+				{Student: student, Semester: 1, Gpa: record.CGPA},
+				{Student: student, Semester: 2, Gpa: record.CGPA},
+			}
+			
+			overallGPA := calculator.CalculateOverallGPA(semesterGPAs)
+			status := calculator.DetermineStatus(overallGPA)
+			
+			fmt.Printf("\nGPA Calculator Validation:\n")
+			fmt.Printf("- Calculated GPA: %.2f\n", overallGPA)
+			fmt.Printf("- Determined Status: %s\n", status)
+			break // Just demo with first student
+		}
+	}
 }
 
 func demonstrateTeacherServices() {
 	fmt.Println("\n3. TEACHER SERVICES - Document Upload and Mark Management")
 	fmt.Println(strings.Repeat("=", 60))
 
-	// Setup for teacher services
 	registrar := &internal.RegistrarWithDocs{
 		NewRegistrarS: &internal.NewRegistrarS{},
 	}
 
-	teacher := internal.NewTeacher("T001", "Dr. Alan Turing")
-	teacherService := &internal.TeacherService{
-		Registrar: registrar,
-		Teacher:   teacher,
+	// Load students and courses from JSON
+	registrar.LoadStudents()
+	registrar.LoadCourses()
+
+	// Create teachers (not imported from JSON)
+	teachers := []internal.Teacher{
+		internal.NewTeacher("T001", "Dr. Alan Turing"),
+		internal.NewTeacher("T002", "Dr. Ada Lovelace"),
+		internal.NewTeacher("T003", "Dr. Grace Hopper"),
 	}
 
-	// Mock enrollment for demo
-	student := internal.NewStudent(1, "Alice Johnson")
-	course := internal.NewCourse(101, "Data Structures")
-	grader := internal.LetterGrader{}
-	attendance := internal.Attendance{Records: make(map[time.Time]bool)}
-	enrollNew := internal.NewEnrollNew(student, course, grader, 0.0, attendance, teacher)
-	
-	registrar.NewRegistrarS.AddEnrollnew(enrollNew)
+	for _, teacher := range teachers {
+		registrar.AddTeacher(teacher)
+	}
 
-	// Upload student marks
+	// Create sample students and courses for demo (using first few from loaded data)
+	sampleStudents := []internal.Student{
+		internal.NewStudent(1, "Alice Johnson"),
+		internal.NewStudent(2, "Bob Smith"), 
+		internal.NewStudent(3, "Charlie Brown"),
+	}
+
+	sampleCourses := []internal.Course{
+		internal.NewCourse(101, "Data Structures"),
+		internal.NewCourse(102, "Operating Systems"),
+	}
+
+	// Create enrollments for teacher services demo
+	registrar.CreateEnrollmentsForAllStudents(sampleStudents, sampleCourses, teachers)
+	fmt.Printf("✅ Created enrollments for teacher services demo\n")
+
+	// Teacher service demo
+	teacherService := &internal.TeacherService{
+		Registrar: registrar,
+		Teacher:   teachers[0],
+	}
+
+	// Upload marks demo
 	err := teacherService.UploadStudentMark(101, 1, 85.5)
 	if err != nil {
 		fmt.Printf("Error uploading mark: %v\n", err)
 	} else {
-		fmt.Println("Successfully uploaded mark")
+		fmt.Println("✅ Successfully uploaded individual mark")
 	}
 
-	// Upload marks from JSON
+	// Bulk marks upload demo
 	marksJSON := `[
 		{"course_id": 101, "student_id": 1, "score": 87.5},
 		{"course_id": 101, "student_id": 2, "score": 92.0}
@@ -247,21 +232,20 @@ func demonstrateTeacherServices() {
 
 	err = teacherService.UploadStudentMarksFromJSON([]byte(marksJSON))
 	if err != nil {
-		fmt.Printf("Error uploading marks from JSON: %v\n", err)
+		fmt.Printf("Error uploading bulk marks: %v\n", err)
 	} else {
-		fmt.Println("Successfully uploaded marks from JSON")
+		fmt.Println("✅ Successfully uploaded bulk marks")
 	}
 
-	// Document upload demo - using only what's available in modules
-	sampleDocument := []byte("This is a sample assignment document content")
+	// Document upload demo
+	sampleDocument := []byte("Sample assignment content")
 	err = teacherService.UploadFile(101, 1, "Assignment 1", "assignment1.pdf", "application/pdf", sampleDocument)
 	if err != nil {
 		fmt.Printf("Error uploading document: %v\n", err)
 	} else {
-		fmt.Println("Successfully uploaded document")
+		fmt.Println("✅ Successfully uploaded document")
 	}
 
-	// Display documents
 	registrar.DisplayDocuments()
 }
 
@@ -269,87 +253,71 @@ func demonstratePlacementSystem() {
 	fmt.Println("\n4. PLACEMENT MANAGEMENT - Companies, Drives, and Applications")
 	fmt.Println(strings.Repeat("=", 65))
 
-	// Create placement registrar
 	placementRegistrar := &internal.PlacementRegistrar{}
 
-	// Create companies
-	companies := []*internal.Company{
-		internal.NewCompany("Google"),
-		internal.NewCompany("Microsoft"),
-		internal.NewCompany("Amazon"),
+	// Create companies (not imported from JSON - business logic)
+	companyNames := []string{
+		"Google", "Microsoft", "Amazon", "Meta", "Apple",
+		"Netflix", "Adobe", "Salesforce", "Oracle", "IBM",
+		"TCS", "Infosys", "Wipro", "Accenture", "Capgemini",
 	}
 
-	for _, company := range companies {
-		placementRegistrar.AddCompany(company)
+	companies := make([]*internal.Company, len(companyNames))
+	for i, name := range companyNames {
+		companies[i] = internal.NewCompany(name)
+		placementRegistrar.AddCompany(companies[i])
 	}
+	fmt.Printf("✅ Created %d companies\n", len(companies))
 
-	// Create drives
+	// Create placement drives (not imported from JSON)
 	startDate := time.Now()
-	endDate := startDate.AddDate(0, 0, 30)
+	endDate := startDate.AddDate(0, 1, 0)
 
-	drives := []*internal.Drive{
-		internal.NewDrive(startDate, endDate, "Software Engineer", 7.5, 1500000, internal.SuperDream),
-		internal.NewDrive(startDate, endDate, "Data Scientist", 8.0, 1800000, internal.Marquee),
-		internal.NewDrive(startDate, endDate, "Product Manager", 7.0, 2000000, internal.Marquee),
+	driveConfigs := []struct {
+		companyIndex int
+		role         string
+		minGPA       float64
+		ctc          int
+		category     internal.JobCategory
+	}{
+		{0, "Software Engineer", 8.5, 3000000, internal.Marquee},
+		{1, "SDE-2", 8.0, 2800000, internal.Marquee},
+		{2, "SDE-1", 7.5, 2500000, internal.SuperDream},
+		{3, "Software Engineer", 8.8, 3200000, internal.Marquee},
+		{4, "iOS Developer", 8.0, 2900000, internal.Marquee},
+		{10, "Associate", 6.0, 900000, internal.Dream},
+		{11, "Systems Engineer", 6.5, 950000, internal.Dream},
+		{12, "Project Engineer", 6.0, 800000, internal.Dream},
 	}
 
-	// Add drives to companies
-	for i, drive := range drives {
-		companies[i].AddDrive(drive)
+	for _, config := range driveConfigs {
+		drive := internal.NewDrive(startDate, endDate, config.role, config.minGPA, config.ctc, config.category)
+		companies[config.companyIndex].AddDrive(drive)
+		fmt.Printf("✅ %s: %s (%.1f LPA, min GPA: %.1f)\n", 
+			companies[config.companyIndex].Name(), config.role,
+			float64(config.ctc)/100000, config.minGPA)
 	}
 
-	// Create students and applicants
-	students := []internal.Student{
-		internal.NewStudent(1, "Alice Johnson"),
-		internal.NewStudent(2, "Bob Smith"),
-		internal.NewStudent(3, "Charlie Brown"),
-	}
+	// Create applicants using imported student data
+	createApplicantsFromImportedData(placementRegistrar)
 
-	// Fixed: Properly add applicants to placement registrar
-	for i, student := range students {
-		academicRecord := internal.NewAcademicRecord(student.ID())
-		academicRecord.CGPA = 8.5 - float64(i)*0.5 // Varying CGPAs
-		applicant := internal.NewApplicant(student, *academicRecord)
-		
-		// Add to the applicants slice properly
-		currentApplicants := placementRegistrar.GetApplicants()
-		currentApplicants = append(currentApplicants, applicant)
-		// Note: This requires the placementRegistrar to have a method to set applicants
-		// For now, we'll work around this limitation
-	}
-
-	// Create a few applicants manually for the demo
-	applicant1 := internal.NewApplicant(students[0], *internal.NewAcademicRecord(1))
-	applicant1.CGPA = 8.5
-	applicant2 := internal.NewApplicant(students[1], *internal.NewAcademicRecord(2))
-	applicant2.CGPA = 8.0
-	applicant3 := internal.NewApplicant(students[2], *internal.NewAcademicRecord(3))
-	applicant3.CGPA = 7.5
-
-	// Student placement service demo
-	placementService := internal.NewStudentPlacementService(students[0], *drives[0])
-	
-	// Check eligible companies
-	eligibleCompanies := placementService.CompaniesApplicable()
-	fmt.Printf("Companies eligible for %s: %v\n", students[0].Name(), eligibleCompanies)
-
-	// Apply for drives (Note: This requires applicants to be properly set up in registrar)
+	// Demo placement process
+	fmt.Println("\n--- Placement Process Demo ---")
 	err := placementRegistrar.ApplyForDrive(1, 1, 1)
 	if err != nil {
 		fmt.Printf("Application error: %v\n", err)
 	} else {
-		fmt.Println("Successfully applied for drive")
+		fmt.Println("✅ Successfully applied for drive")
 	}
 
-	// Update application status
 	err = placementRegistrar.UpdateApplicationStatus(1, 1, internal.ShortListed)
 	if err != nil {
 		fmt.Printf("Status update error: %v\n", err)
 	} else {
-		fmt.Println("Application status updated to ShortListed")
+		fmt.Println("✅ Application status updated to ShortListed")
 	}
 
-	// Generate placement reports
+	// Generate reports
 	reportByStudent := placementRegistrar.GenerateReportByStudent()
 	reportByDrive := placementRegistrar.GenerateReportByDrive()
 	fullReport := placementRegistrar.GenerateFullReport()
@@ -358,182 +326,176 @@ func demonstratePlacementSystem() {
 	fmt.Printf("- Total companies: %d\n", fullReport.TotalComapanies)
 	fmt.Printf("- Total offers made: %d\n", fullReport.TotalOffersMade)
 	fmt.Printf("- Students with reports: %d\n", len(reportByStudent))
-	fmt.Printf("- Drive CTC: %d\n", reportByDrive.DriveCTC)
+	fmt.Printf("- Drive CTC: ₹%.1f LPA\n", float64(reportByDrive.DriveCTC)/100000)
+}
+
+func createApplicantsFromImportedData(placementRegistrar *internal.PlacementRegistrar) {
+	// Load course results to calculate CGPAs
+	courseResults := infrastructure.LoadCourseResults()
+	
+	// Build academic records from imported data
+	records := make(map[int]*internal.AcademicRecord)
+	for _, cr := range courseResults {
+		if records[cr.StudentId] == nil {
+			records[cr.StudentId] = internal.NewAcademicRecord(cr.StudentId)
+		}
+		records[cr.StudentId].AddResult(cr, cr.Semester)
+	}
+
+	// Create applicants from first 20 students with academic records
+	count := 0
+	for studentID, record := range records {
+		if count >= 20 { // Limit for demo
+			break
+		}
+		
+		student := internal.NewStudent(studentID, fmt.Sprintf("Student %d", studentID))
+		applicant := internal.NewApplicant(student, *record)
+		placementRegistrar.AddApplicant(applicant)
+		
+		fmt.Printf("✅ Added applicant: Student %d (CGPA: %.1f, Status: %s)\n", 
+			studentID, record.CGPA, record.Status)
+		count++
+	}
 }
 
 func demonstrateAnalytics() {
-	fmt.Println("\n5. ANALYTICS - GPA Distribution and Performance Analysis")
+	fmt.Println("\n5. ANALYTICS - Real Data Processing and Visualization")
 	fmt.Println(strings.Repeat("=", 60))
 
-	// Note: Analytics functions require external data files
-	// For demo purposes, we'll show the function calls
-	
-	fmt.Println("Analytics functions available:")
-	fmt.Println("- GenerateGPAHistogramFromFiles()")
-	fmt.Println("- ExportGPAHistogramChart()")
-	fmt.Println("- ExportDeanListChart()")
-	fmt.Println("- ExportAtRiskChart()")
-	fmt.Println("- ExportPlacementBarChart()")
-	fmt.Println("- ExportCompanySelectionChart()")
-
-	// Create sample histogram data
-	sampleHistogram := map[string]int{
-		"<4":    5,
-		"4-4.9": 12,
-		"5-5.9": 18,
-		"6-6.9": 25,
-		"7-7.9": 20,
-		"8-8.9": 15,
-		"9-10":  5,
+	// Use imported data for analytics (not hardcoded)
+	histogram, err := internal.GenerateGPAHistogramFromFiles("courseResults.json", "students.json")
+	if err != nil {
+		fmt.Printf("Error generating histogram: %v\n", err)
+		return
 	}
 
-	fmt.Println("\nSample GPA Distribution:")
-	for bucket, count := range sampleHistogram {
+	fmt.Println("✅ Generated GPA histogram from imported data!")
+	fmt.Println("\nGPA Distribution:")
+	for bucket, count := range histogram {
 		fmt.Printf("- %s: %d students\n", bucket, count)
 	}
 
-	// Demo placement offers
-	sampleOffers := []internal.PlacementOffer{
-		{CompanyName: "Google", PackageLPA: 25.0, NumStudents: 5, JobTitle: "SDE"},
-		{CompanyName: "Microsoft", PackageLPA: 22.0, NumStudents: 8, JobTitle: "SDE"},
-		{CompanyName: "Amazon", PackageLPA: 18.0, NumStudents: 12, JobTitle: "SDE"},
+	// Export analytics charts
+	err = internal.ExportGPAHistogramChart(histogram, "gpa_histogram.png")
+	if err != nil {
+		fmt.Printf("Error exporting histogram chart: %v\n", err)
+	} else {
+		fmt.Println("✅ Generated GPA histogram chart: gpa_histogram.png")
 	}
 
-	categorizedOffers := internal.CategorizeOffers(sampleOffers)
-	fmt.Println("\nCategorized Placement Offers:")
-	for category, offers := range categorizedOffers {
-		fmt.Printf("- %s: %d offers\n", category, len(offers))
+	err = internal.ExportDeanListChart("courseResults.json", "students.json", "deans_list.png")
+	if err != nil {
+		fmt.Printf("Error generating Dean's List chart: %v\n", err)
+	} else {
+		fmt.Println("✅ Generated Dean's List chart: deans_list.png")
+	}
+
+	err = internal.ExportAtRiskChart("courseResults.json", "students.json", "at_risk.png")
+	if err != nil {
+		fmt.Printf("Error generating At-Risk chart: %v\n", err)
+	} else {
+		fmt.Println("✅ Generated At-Risk students chart: at_risk.png")
+	}
+
+	// Load and process placement offers from JSON
+	offers, err := internal.LoadOffers("placementOffers.json")
+	if err != nil {
+		fmt.Printf("Error loading placement offers: %v\n", err)
+		return
+	}
+
+	categorizedOffers := internal.CategorizeOffers(offers)
+	fmt.Println("\nPlacement Offers by Category (from imported data):")
+	for category, categoryOffers := range categorizedOffers {
+		fmt.Printf("- %s: %d offers\n", category, len(categoryOffers))
+	}
+
+	// Export placement analytics
+	err = internal.ExportCategorizedOffers("categorized_offers.json", categorizedOffers)
+	if err != nil {
+		fmt.Printf("Error exporting categorized offers: %v\n", err)
+	} else {
+		fmt.Println("✅ Exported categorized offers: categorized_offers.json")
 	}
 }
 
 func demonstrateFileOperations() {
-	fmt.Println("\n6. FILE OPERATIONS - Import/Export and Data Management")
+	fmt.Println("\n6. FILE OPERATIONS - Export and Data Management")
 	fmt.Println(strings.Repeat("=", 60))
 
-	// Student service operations
-	students := []internal.Student{
+	// File operations demo with sample data (not imported data)
+	sampleStudents := []internal.Student{
 		internal.NewStudent(1, "Alice Johnson"),
 		internal.NewStudent(2, "Bob Smith"),
 		internal.NewStudent(3, "Charlie Brown"),
 	}
 
-	// Update student name
-	err := internal.UpdateStudentName(students, 1, "Alice Cooper")
+	// Student management operations
+	err := internal.UpdateStudentName(sampleStudents, 1, "Alice Cooper")
 	if err != nil {
 		fmt.Printf("Error updating student name: %v\n", err)
 	} else {
-		fmt.Println("Successfully updated student name")
+		fmt.Println("✅ Successfully updated student name")
 	}
 
-	// Find student by ID
-	foundStudent := internal.FindStudentByID(students, 2)
+	foundStudent := internal.FindStudentByID(sampleStudents, 2)
 	if foundStudent != nil {
-		fmt.Printf("Found student: %s\n", foundStudent.Name())
+		fmt.Printf("✅ Found student: %s\n", foundStudent.Name())
 	}
 
-	// Find students by name
-	studentsWithName := internal.FindStudentsByName(students, "Bob Smith")
-	fmt.Printf("Students named 'Bob Smith': %d\n", len(studentsWithName))
+	studentsWithName := internal.FindStudentsByName(sampleStudents, "Bob Smith")
+	fmt.Printf("✅ Students named 'Bob Smith': %d\n", len(studentsWithName))
 
-	// Serialize students to JSON
-	err = internal.SerializeStudents("students_export.json", students)
+	// Export operations
+	err = internal.SerializeStudents("exported_students.json", sampleStudents)
 	if err != nil {
 		fmt.Printf("Error serializing students: %v\n", err)
 	} else {
-		fmt.Println("Successfully exported students to JSON")
+		fmt.Println("✅ Successfully exported students to JSON")
 	}
 
-	// Create sample enrollment data for CSV export
-	course := internal.NewCourse(101, "Data Structures")
-	grader := internal.LetterGrader{}
-	enrollments := []internal.Enrollment{
-		internal.NewEnrollment(students[0], course, grader, 8.5),
-		internal.NewEnrollment(students[1], course, grader, 7.8),
-	}
-
-	// Export transcript to CSV
-	err = infrastructure.ExportTranscript("transcript.csv", enrollments)
-	if err != nil {
-		fmt.Printf("Error exporting transcript: %v\n", err)
-	} else {
-		fmt.Println("Successfully exported transcript to CSV")
-	}
-
-	// Create sample academic records
+	// Sample academic records for export demo
 	academicRecords := []internal.AcademicRecord{
 		{StudentId: 1, CGPA: 8.5, Status: "Dean's List"},
 		{StudentId: 2, CGPA: 6.2, Status: "Normal"},
 		{StudentId: 3, CGPA: 4.8, Status: "At Risk"},
 	}
 
-	// Export dean's list students
-	err = infrastructure.ExportDeanListStudents("deans_list.csv", academicRecords)
+	err = infrastructure.ExportDeanListStudents("deans_list_export.csv", academicRecords)
 	if err != nil {
 		fmt.Printf("Error exporting dean's list: %v\n", err)
 	} else {
-		fmt.Println("Successfully exported dean's list to CSV")
+		fmt.Println("✅ Successfully exported dean's list to CSV")
 	}
 
-	// Export at-risk students
-	err = infrastructure.ExportAtRiskStudents("at_risk.csv", academicRecords)
+	err = infrastructure.ExportAtRiskStudents("at_risk_export.csv", academicRecords)
 	if err != nil {
 		fmt.Printf("Error exporting at-risk students: %v\n", err)
 	} else {
-		fmt.Println("Successfully exported at-risk students to CSV")
+		fmt.Println("✅ Successfully exported at-risk students to CSV")
 	}
 
-	// Create sample results for JSON/CSV export
+	// Sample results for export demo
 	results := []internal.StudentResult{
 		{CourseID: 101, CourseName: "Data Structures", StudentID: 1, StudentName: "Alice", Score: 85.5, Grade: "A"},
 		{CourseID: 101, CourseName: "Data Structures", StudentID: 2, StudentName: "Bob", Score: 78.0, Grade: "B+"},
 	}
 
-	// Export results as JSON
 	jsonData, err := infrastructure.ExportResultsAsJSON(results)
 	if err != nil {
-		fmt.Printf("Error exporting JSON: %v\n", err)
+		fmt.Printf("Error exporting results as JSON: %v\n", err)
 	} else {
-		fmt.Printf("JSON export sample: %s\n", string(jsonData[:100])+"...")
+		fmt.Printf("✅ JSON export completed (%d bytes)\n", len(jsonData))
 	}
 
-	// Export results as CSV
 	csvData, err := infrastructure.ExportResultsAsCSV(results)
 	if err != nil {
-		fmt.Printf("Error exporting CSV: %v\n", err)
+		fmt.Printf("Error exporting results as CSV: %v\n", err)
 	} else {
-		fmt.Printf("CSV export sample: %s\n", string(csvData[:100])+"...")
+		fmt.Printf("✅ CSV export completed (%d bytes)\n", len(csvData))
 	}
 
-	fmt.Println("\nFile operations completed!")
-}
-
-// Helper function to create sample data files (call this before running main demo)
-func createSampleDataFiles() {
-	// Create students.json
-	students := []map[string]interface{}{
-		{"id": 1, "name": "Alice Johnson"},
-		{"id": 2, "name": "Bob Smith"},
-		{"id": 3, "name": "Charlie Brown"},
-	}
-	studentsJSON, _ := json.MarshalIndent(students, "", "  ")
-	os.WriteFile("students.json", studentsJSON, 0644)
-
-	// Create courses.json
-	courses := []map[string]interface{}{
-		{"id": 101, "title": "Data Structures", "credits": 4.0},
-		{"id": 102, "title": "Operating Systems", "credits": 3.0},
-		{"id": 103, "title": "Database Systems", "credits": 4.0},
-	}
-	coursesJSON, _ := json.MarshalIndent(courses, "", "  ")
-	os.WriteFile("courses.json", coursesJSON, 0644)
-
-	// Create courseResults.json
-	courseResults := []map[string]interface{}{
-		{"student_id": 1, "course_id": 101, "course_name": "Data Structures", "grade": "A", "semester": 1, "credits": 4.0},
-		{"student_id": 2, "course_id": 101, "course_name": "Data Structures", "grade": "B+", "semester": 1, "credits": 4.0},
-		{"student_id": 3, "course_id": 102, "course_name": "Operating Systems", "grade": "A+", "semester": 1, "credits": 3.0},
-	}
-	courseResultsJSON, _ := json.MarshalIndent(courseResults, "", "  ")
-	os.WriteFile("courseResults.json", courseResultsJSON, 0644)
+	fmt.Println("\n✅ All file operations completed!")
 }
 

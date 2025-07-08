@@ -29,10 +29,19 @@ func (ar *AcademicRecord) calculateCGPA() {
 			gradePoints := semResult.getGradePoints(courseResult.Grade)
 			totalPoints += gradePoints * courseResult.Credits
 			totalCredits += courseResult.Credits
-			totalCredits++
 		}
 	}
 	if totalCredits > 0 {
 		ar.CGPA = totalPoints / totalCredits
+		ar.Status = ar.determineStatus()  
 	}
+}
+
+func (ar *AcademicRecord) determineStatus() string {
+    if ar.CGPA >= 8.0 {
+        return "Dean's List"
+    } else if ar.CGPA < 5.0 {
+        return "At Risk"
+    }
+    return "Normal"
 }

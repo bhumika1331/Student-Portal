@@ -35,12 +35,8 @@ func (jc JobCategory) String() string {
 type Eligibility struct {
 	requirement float64
 }
-
-// func (el Eligibility) checkEligibility(applicant *Applicant) bool {
-// 	panic("unimplemented")
-// }
-
 // Drive struct
+
 type Drive struct {
 	id           int
 	startDate    time.Time
@@ -70,11 +66,6 @@ func (el *Eligibility) Requirement() float64 {
 func (el *Eligibility) ChangeRequirement(newReq float64) {
 	el.requirement = newReq
 }
-
-func (el *Eligibility) CheckEligibility(applicant *Applicant) bool {
-	return applicant.CGPA >= el.requirement
-}
-
 // --- Drive Getters ---
 
 func (dr Drive) ID() int {
@@ -182,10 +173,6 @@ func (dr *Drive) getShortlistedApplications() []*Application {
 }
 
 // Elegibility functions
-func (el *Eligibility) checkEligibility(applicant *Applicant) bool {
-	if el.requirement >= applicant.CGPA {
-		return false
-	} else {
-		return true
-	}
+func (el *Eligibility) CheckEligibility(applicant *Applicant) bool {
+    return applicant.CGPA >= el.requirement  // This is correct
 }

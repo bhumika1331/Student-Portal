@@ -1,0 +1,18 @@
+[
+  {
+    "course_id": 101,
+    "course_name": "Data Structures",
+    "student_id": 1,
+    "student_name": "Alice",
+    "score": 85.5,
+    "grade": "A"
+  },
+  {
+    "course_id": 101,
+    "course_name": "Data Structures",
+    "student_id": 2,
+    "student_name": "Bob",
+    "score": 78,
+    "grade": "B+"
+  }
+]
