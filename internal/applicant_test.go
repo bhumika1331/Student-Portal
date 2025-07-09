@@ -355,13 +355,13 @@ func TestApplicant_getAllRecivedOffersDrivesAndApplications(t *testing.T) {
 	})
 }
 
-func TestApplicant_getFinalOffer(t *testing.T) {
+func TestApplicant_GetFinalOffer(t *testing.T) {
 	t.Run("should return error when no offers exist", func(t *testing.T) {
 		a := NewApplicant(Student{id: 7}, AcademicRecord{})
-		_, err := a.getFinalOffer()
+		_, err := a.GetFinalOffer()
 
 		if err == nil {
-			t.Error("getFinalOffer should fail when no offers exist")
+			t.Error("GetFinalOffer should fail when no offers exist")
 		}
 		if err.Error() != "no offers yet" {
 			t.Errorf("Expected error 'no offers yet', got '%v'", err.Error())
@@ -375,9 +375,9 @@ func TestApplicant_getFinalOffer(t *testing.T) {
 		d.applications = []*Application{app}
 		a.AddDrivesAppliedFor(d)
 
-		ctc, err := a.getFinalOffer()
+		ctc, err := a.GetFinalOffer()
 		if err != nil {
-			t.Errorf("getFinalOffer should succeed when offers exist, got error: %v", err)
+			t.Errorf("GetFinalOffer should succeed when offers exist, got error: %v", err)
 		}
 		if ctc != 100 {
 			t.Errorf("Expected CTC 100, got %d", ctc)
@@ -395,9 +395,9 @@ func TestApplicant_getFinalOffer(t *testing.T) {
 		a.AddDrivesAppliedFor(d1)
 		a.AddDrivesAppliedFor(d2)
 
-		ctc, err := a.getFinalOffer()
+		ctc, err := a.GetFinalOffer()
 		if err != nil {
-			t.Errorf("getFinalOffer should succeed with multiple offers, got error: %v", err)
+			t.Errorf("GetFinalOffer should succeed with multiple offers, got error: %v", err)
 		}
 		if ctc != 150 {
 			t.Errorf("Expected first offer CTC 150, got %d", ctc)
@@ -411,9 +411,9 @@ func TestApplicant_getFinalOffer(t *testing.T) {
 		d.applications = []*Application{app}
 		a.AddDrivesAppliedFor(d)
 
-		ctc, err := a.getFinalOffer()
+		ctc, err := a.GetFinalOffer()
 		if err != nil {
-			t.Errorf("getFinalOffer should succeed with zero CTC, got error: %v", err)
+			t.Errorf("GetFinalOffer should succeed with zero CTC, got error: %v", err)
 		}
 		if ctc != 0 {
 			t.Errorf("Expected CTC 0, got %d", ctc)

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"time"
 	"os"
 )
 
@@ -142,3 +143,16 @@ func (r *Registrar) DisplayCourses() {
 		log.Printf("#%d : %s\n", cr.Id, cr.Name)
 	}
 }
+
+func (r *NewRegistrarS) CreateEnrollmentsForAllStudents(students []Student, courses []Course, teachers []Teacher) {
+    grader := LetterGrader{}
+    attendance := Attendance{Records: make(map[time.Time]bool)}
+    for _, student := range students {
+        for j, course := range courses {
+            teacher := teachers[j%len(teachers)]  
+            enrollNew := NewEnrollNew(student, course, grader, 0.0, attendance, teacher)
+            r.AddEnrollnew(enrollNew)
+        }
+    }
+}
+

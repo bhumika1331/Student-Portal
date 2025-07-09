@@ -1,302 +1,105 @@
 [
-  {
-    "CompanyName": "DeltaSystems",
-    "PackageLPA": 14.9,
-    "NumStudents": 7,
-    "JobTitle": "System Architect"
-  },
-  {
-    "CompanyName": "InnovateX",
-    "PackageLPA": 8.2,
-    "NumStudents": 5,
-    "JobTitle": "Product Manager"
-  },
-  {
-    "CompanyName": "BizSoft",
-    "PackageLPA": 7.5,
-    "NumStudents": 9,
-    "JobTitle": "Network Engineer"
-  },
-  {
-    "CompanyName": "InnovateX",
-    "PackageLPA": 24.3,
-    "NumStudents": 2,
-    "JobTitle": "Data Analyst"
-  },
-  {
-    "CompanyName": "InnovateX",
-    "PackageLPA": 22.5,
-    "NumStudents": 5,
-    "JobTitle": "Product Manager"
-  },
-  {
-    "CompanyName": "AlphaSolutions",
-    "PackageLPA": 7.1,
-    "NumStudents": 10,
-    "JobTitle": "Security Analyst"
-  },
-  {
-    "CompanyName": "AlphaSolutions",
-    "PackageLPA": 22.9,
-    "NumStudents": 5,
-    "JobTitle": "Data Analyst"
-  },
-  {
-    "CompanyName": "AlphaSolutions",
-    "PackageLPA": 14.4,
-    "NumStudents": 10,
-    "JobTitle": "Network Engineer"
-  },
-  {
-    "CompanyName": "InnovateX",
-    "PackageLPA": 15.9,
-    "NumStudents": 1,
-    "JobTitle": "Security Analyst"
-  },
-  {
-    "CompanyName": "DeltaSystems",
-    "PackageLPA": 16.8,
-    "NumStudents": 7,
-    "JobTitle": "DevOps Engineer"
-  },
-  {
-    "CompanyName": "BizSoft",
-    "PackageLPA": 9.5,
-    "NumStudents": 7,
-    "JobTitle": "System Architect"
-  },
-  {
-    "CompanyName": "AlphaSolutions",
-    "PackageLPA": 21.4,
-    "NumStudents": 6,
-    "JobTitle": "Software Engineer"
-  },
-  {
-    "CompanyName": "DataMinds",
-    "PackageLPA": 22.7,
-    "NumStudents": 5,
-    "JobTitle": "Business Analyst"
-  },
-  {
-    "CompanyName": "HealthPlus",
-    "PackageLPA": 23.7,
-    "NumStudents": 1,
-    "JobTitle": "Data Analyst"
-  },
-  {
-    "CompanyName": "InnovateX",
-    "PackageLPA": 10.4,
-    "NumStudents": 10,
-    "JobTitle": "Network Engineer"
-  },
-  {
-    "CompanyName": "FinServe",
-    "PackageLPA": 24.2,
-    "NumStudents": 4,
-    "JobTitle": "System Architect"
-  },
-  {
-    "CompanyName": "DataMinds",
-    "PackageLPA": 16.1,
-    "NumStudents": 5,
-    "JobTitle": "System Architect"
-  },
-  {
-    "CompanyName": "AlphaSolutions",
-    "PackageLPA": 16.3,
-    "NumStudents": 4,
-    "JobTitle": "Network Engineer"
-  },
-  {
-    "CompanyName": "DeltaSystems",
-    "PackageLPA": 10.8,
-    "NumStudents": 5,
-    "JobTitle": "Software Engineer"
-  },
-  {
-    "CompanyName": "DataMinds",
-    "PackageLPA": 13.2,
-    "NumStudents": 5,
-    "JobTitle": "Network Engineer"
-  },
-  {
-    "CompanyName": "BetaTech",
-    "PackageLPA": 23.0,
-    "NumStudents": 8,
-    "JobTitle": "System Architect"
-  },
-  {
-    "CompanyName": "HealthPlus",
-    "PackageLPA": 10.9,
-    "NumStudents": 2,
-    "JobTitle": "Product Manager"
-  },
-  {
-    "CompanyName": "DataMinds",
-    "PackageLPA": 22.9,
-    "NumStudents": 5,
-    "JobTitle": "Business Analyst"
-  },
-  {
-    "CompanyName": "BetaTech",
-    "PackageLPA": 10.5,
-    "NumStudents": 2,
-    "JobTitle": "Business Analyst"
-  },
-  {
-    "CompanyName": "DeltaSystems",
-    "PackageLPA": 15.8,
-    "NumStudents": 9,
-    "JobTitle": "Security Analyst"
-  },
-  {
-    "CompanyName": "InnovateX",
-    "PackageLPA": 11.3,
-    "NumStudents": 6,
-    "JobTitle": "Security Analyst"
-  },
-  {
-    "CompanyName": "TechCorp",
-    "PackageLPA": 10.1,
-    "NumStudents": 1,
-    "JobTitle": "Data Scientist"
-  },
-  {
-    "CompanyName": "FinServe",
-    "PackageLPA": 14.1,
-    "NumStudents": 4,
-    "JobTitle": "QA Engineer"
-  },
-  {
-    "CompanyName": "TechCorp",
-    "PackageLPA": 20.5,
-    "NumStudents": 4,
-    "JobTitle": "QA Engineer"
-  },
-  {
-    "CompanyName": "DeltaSystems",
-    "PackageLPA": 22.0,
-    "NumStudents": 5,
-    "JobTitle": "Security Analyst"
-  },
-  {
-    "CompanyName": "InnovateX",
-    "PackageLPA": 10.0,
-    "NumStudents": 2,
-    "JobTitle": "Software Engineer"
-  },
-  {
-    "CompanyName": "BizSoft",
-    "PackageLPA": 22.8,
-    "NumStudents": 7,
-    "JobTitle": "Data Analyst"
-  },
-  {
-    "CompanyName": "GammaEnterprises",
-    "PackageLPA": 14.1,
-    "NumStudents": 9,
-    "JobTitle": "System Architect"
-  },
-  {
-    "CompanyName": "FinServe",
-    "PackageLPA": 21.5,
-    "NumStudents": 8,
-    "JobTitle": "System Architect"
-  },
-  {
-    "CompanyName": "DeltaSystems",
-    "PackageLPA": 17.8,
-    "NumStudents": 9,
-    "JobTitle": "Business Analyst"
-  },
-  {
-    "CompanyName": "TechCorp",
-    "PackageLPA": 19.0,
-    "NumStudents": 3,
-    "JobTitle": "Product Manager"
-  },
-  {
-    "CompanyName": "BetaTech",
-    "PackageLPA": 10.4,
-    "NumStudents": 2,
-    "JobTitle": "Security Analyst"
-  },
-  {
-    "CompanyName": "AlphaSolutions",
-    "PackageLPA": 19.1,
-    "NumStudents": 10,
-    "JobTitle": "Business Analyst"
-  },
-  {
-    "CompanyName": "GammaEnterprises",
-    "PackageLPA": 11.7,
-    "NumStudents": 5,
-    "JobTitle": "Product Manager"
-  },
-  {
-    "CompanyName": "DataMinds",
-    "PackageLPA": 21.8,
-    "NumStudents": 9,
-    "JobTitle": "QA Engineer"
-  },
-  {
-    "CompanyName": "BetaTech",
-    "PackageLPA": 7.7,
-    "NumStudents": 5,
-    "JobTitle": "Data Analyst"
-  },
-  {
-    "CompanyName": "InnovateX",
-    "PackageLPA": 23.1,
-    "NumStudents": 3,
-    "JobTitle": "Network Engineer"
-  },
-  {
-    "CompanyName": "HealthPlus",
-    "PackageLPA": 13.7,
-    "NumStudents": 1,
-    "JobTitle": "Software Engineer"
-  },
-  {
-    "CompanyName": "HealthPlus",
-    "PackageLPA": 16.5,
-    "NumStudents": 3,
-    "JobTitle": "Data Scientist"
-  },
-  {
-    "CompanyName": "DataMinds",
-    "PackageLPA": 20.8,
-    "NumStudents": 7,
-    "JobTitle": "Security Analyst"
-  },
-  {
-    "CompanyName": "HealthPlus",
-    "PackageLPA": 15.0,
-    "NumStudents": 2,
-    "JobTitle": "QA Engineer"
-  },
-  {
-    "CompanyName": "BetaTech",
-    "PackageLPA": 20.3,
-    "NumStudents": 7,
-    "JobTitle": "DevOps Engineer"
-  },
-  {
-    "CompanyName": "BizSoft",
-    "PackageLPA": 7.5,
-    "NumStudents": 10,
-    "JobTitle": "Business Analyst"
-  },
-  {
-    "CompanyName": "AlphaSolutions",
-    "PackageLPA": 19.1,
-    "NumStudents": 1,
-    "JobTitle": "System Architect"
-  },
-  {
-    "CompanyName": "TechCorp",
-    "PackageLPA": 11.1,
-    "NumStudents": 4,
-    "JobTitle": "Network Engineer"
-  }
+  {"CompanyName": "Google", "PackageLPA": 28.5, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Microsoft", "PackageLPA": 26.0, "NumStudents": 4, "JobTitle": "SDE"},
+  {"CompanyName": "Amazon", "PackageLPA": 24.5, "NumStudents": 5, "JobTitle": "SDE-1"},
+  {"CompanyName": "Meta", "PackageLPA": 30.0, "NumStudents": 2, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Apple", "PackageLPA": 27.5, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Netflix", "PackageLPA": 32.0, "NumStudents": 2, "JobTitle": "Senior SDE"},
+  {"CompanyName": "Adobe", "PackageLPA": 25.0, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Salesforce", "PackageLPA": 23.5, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Oracle", "PackageLPA": 22.0, "NumStudents": 4, "JobTitle": "Software Developer"},
+  {"CompanyName": "IBM", "PackageLPA": 20.5, "NumStudents": 5, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Cisco", "PackageLPA": 21.0, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Intel", "PackageLPA": 19.5, "NumStudents": 6, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Nvidia", "PackageLPA": 26.5, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "VMware", "PackageLPA": 22.5, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Uber", "PackageLPA": 24.0, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Airbnb", "PackageLPA": 25.5, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Spotify", "PackageLPA": 23.0, "NumStudents": 2, "JobTitle": "Backend Engineer"},
+  {"CompanyName": "Twitter", "PackageLPA": 24.5, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "LinkedIn", "PackageLPA": 25.0, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Snapchat", "PackageLPA": 26.0, "NumStudents": 2, "JobTitle": "Software Engineer"},
+  {"CompanyName": "TCS", "PackageLPA": 8.5, "NumStudents": 15, "JobTitle": "Associate"},
+  {"CompanyName": "Infosys", "PackageLPA": 9.0, "NumStudents": 12, "JobTitle": "Systems Engineer"},
+  {"CompanyName": "Wipro", "PackageLPA": 8.0, "NumStudents": 14, "JobTitle": "Project Engineer"},
+  {"CompanyName": "HCL", "PackageLPA": 8.2, "NumStudents": 13, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Tech Mahindra", "PackageLPA": 8.8, "NumStudents": 11, "JobTitle": "Associate Software Engineer"},
+  {"CompanyName": "Capgemini", "PackageLPA": 9.5, "NumStudents": 10, "JobTitle": "Analyst"},
+  {"CompanyName": "Accenture", "PackageLPA": 10.0, "NumStudents": 9, "JobTitle": "Associate Software Engineer"},
+  {"CompanyName": "Cognizant", "PackageLPA": 9.2, "NumStudents": 11, "JobTitle": "Programmer Analyst"},
+  {"CompanyName": "L&T Infotech", "PackageLPA": 9.8, "NumStudents": 8, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Mindtree", "PackageLPA": 10.5, "NumStudents": 7, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Zomato", "PackageLPA": 18.0, "NumStudents": 5, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Swiggy", "PackageLPA": 17.5, "NumStudents": 6, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Paytm", "PackageLPA": 16.0, "NumStudents": 7, "JobTitle": "Software Engineer"},
+  {"CompanyName": "PhonePe", "PackageLPA": 19.0, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Razorpay", "PackageLPA": 18.5, "NumStudents": 5, "JobTitle": "Software Engineer"},
+  {"CompanyName": "CRED", "PackageLPA": 20.0, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Flipkart", "PackageLPA": 21.0, "NumStudents": 6, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Myntra", "PackageLPA": 19.5, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Ola", "PackageLPA": 17.0, "NumStudents": 5, "JobTitle": "Software Engineer"},
+  {"CompanyName": "BookMyShow", "PackageLPA": 16.5, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "MakeMyTrip", "PackageLPA": 15.5, "NumStudents": 6, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Goldman Sachs", "PackageLPA": 35.0, "NumStudents": 2, "JobTitle": "Technology Analyst"},
+  {"CompanyName": "Morgan Stanley", "PackageLPA": 32.5, "NumStudents": 3, "JobTitle": "Technology Analyst"},
+  {"CompanyName": "JP Morgan", "PackageLPA": 30.5, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Deutsche Bank", "PackageLPA": 28.0, "NumStudents": 3, "JobTitle": "Technology Analyst"},
+  {"CompanyName": "Barclays", "PackageLPA": 26.5, "NumStudents": 4, "JobTitle": "Analyst"},
+  {"CompanyName": "Credit Suisse", "PackageLPA": 29.0, "NumStudents": 2, "JobTitle": "Technology Analyst"},
+  {"CompanyName": "UBS", "PackageLPA": 27.0, "NumStudents": 3, "JobTitle": "Technology Analyst"},
+  {"CompanyName": "Citi", "PackageLPA": 25.5, "NumStudents": 4, "JobTitle": "Technology Analyst"},
+  {"CompanyName": "HSBC", "PackageLPA": 24.0, "NumStudents": 5, "JobTitle": "Technology Analyst"},
+  {"CompanyName": "Standard Chartered", "PackageLPA": 23.0, "NumStudents": 4, "JobTitle": "Technology Analyst"},
+  {"CompanyName": "Company 50", "PackageLPA": 14.5, "NumStudents": 6, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 51", "PackageLPA": 13.8, "NumStudents": 7, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 52", "PackageLPA": 15.2, "NumStudents": 5, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 53", "PackageLPA": 12.5, "NumStudents": 8, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 54", "PackageLPA": 16.0, "NumStudents": 4, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 55", "PackageLPA": 11.8, "NumStudents": 9, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 56", "PackageLPA": 17.2, "NumStudents": 3, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 57", "PackageLPA": 10.5, "NumStudents": 10, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 58", "PackageLPA": 18.5, "NumStudents": 2, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 59", "PackageLPA": 9.8, "NumStudents": 11, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 60", "PackageLPA": 19.0, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 61", "PackageLPA": 8.9, "NumStudents": 12, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 62", "PackageLPA": 20.2, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 63", "PackageLPA": 7.5, "NumStudents": 15, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 64", "PackageLPA": 21.5, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 65", "PackageLPA": 6.8, "NumStudents": 18, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 66", "PackageLPA": 22.0, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 67", "PackageLPA": 5.9, "NumStudents": 20, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 68", "PackageLPA": 23.2, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 69", "PackageLPA": 5.2, "NumStudents": 22, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 70", "PackageLPA": 24.8, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 71", "PackageLPA": 4.5, "NumStudents": 25, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 72", "PackageLPA": 25.5, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 73", "PackageLPA": 3.8, "NumStudents": 28, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 74", "PackageLPA": 26.8, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 75", "PackageLPA": 3.2, "NumStudents": 30, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 76", "PackageLPA": 27.2, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 77", "PackageLPA": 2.8, "NumStudents": 32, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 78", "PackageLPA": 28.5, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 79", "PackageLPA": 2.4, "NumStudents": 35, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 80", "PackageLPA": 29.0, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 81", "PackageLPA": 2.0, "NumStudents": 38, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 82", "PackageLPA": 30.2, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 83", "PackageLPA": 1.8, "NumStudents": 40, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 84", "PackageLPA": 31.5, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 85", "PackageLPA": 1.5, "NumStudents": 42, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 86", "PackageLPA": 32.0, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 87", "PackageLPA": 1.2, "NumStudents": 45, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 88", "PackageLPA": 33.5, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 89", "PackageLPA": 1.0, "NumStudents": 48, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 90", "PackageLPA": 34.0, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 91", "PackageLPA": 0.8, "NumStudents": 50, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 92", "PackageLPA": 35.2, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 93", "PackageLPA": 0.6, "NumStudents": 52, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 94", "PackageLPA": 36.0, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 95", "PackageLPA": 0.4, "NumStudents": 55, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 96", "PackageLPA": 37.5, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 97", "PackageLPA": 0.2, "NumStudents": 58, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 98", "PackageLPA": 38.0, "NumStudents": 1, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 99", "PackageLPA": 0.1, "NumStudents": 60, "JobTitle": "Software Engineer"},
+  {"CompanyName": "Company 100", "PackageLPA": 40.0, "NumStudents": 1, "JobTitle": "Software Engineer"}
 ]
+

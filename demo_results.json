@@ -1,0 +1,10 @@
+[
+  {
+    "course_id": 101,
+    "course_name": "Math",
+    "student_id": 1001,
+    "student_name": "Alice",
+    "score": 0.88,
+    "grade": "88.0%"
+  }
+]

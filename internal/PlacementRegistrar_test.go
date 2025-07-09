@@ -523,7 +523,7 @@ func TestPlacementRegistrar_GenerateReportByDrive(t *testing.T) {
 		pr := &PlacementRegistrar{companies: []*Company{c}}
 
 		rep := pr.GenerateReportByDrive()
-		if rep.drive != d || rep.company != c || rep.driveCTC != 100 {
+		if rep.Drive != d || rep.Company != c || rep.DriveCTC != 100 {
 			t.Error("GenerateReportByDrive failed")
 		}
 	})
@@ -535,7 +535,7 @@ func TestPlacementRegistrar_GenerateReportByDrive(t *testing.T) {
 		pr := &PlacementRegistrar{companies: []*Company{c}}
 
 		rep := pr.GenerateReportByDrive()
-		if rep.drive != d2 || rep.driveCTC != 200 {
+		if rep.Drive != d2 || rep.DriveCTC != 200 {
 			t.Error("GenerateReportByDrive should use last drive")
 		}
 	})
@@ -546,7 +546,7 @@ func TestPlacementRegistrar_GenerateReportByDrive(t *testing.T) {
 		pr := &PlacementRegistrar{companies: []*Company{c}}
 
 		rep := pr.GenerateReportByDrive()
-		if rep.driveCTC != 0 {
+		if rep.DriveCTC != 0 {
 			t.Error("GenerateReportByDrive should handle zero CTC")
 		}
 	})
@@ -565,7 +565,7 @@ func TestPlacementRegistrar_GenerateFullReport(t *testing.T) {
 		}
 
 		rep := pr.GenerateFullReport()
-		if rep.totalComapanies != 1 || rep.totalOffersMade != 1 {
+		if rep.TotalComapanies != 1 || rep.TotalOffersMade != 1 {
 			t.Error("GenerateFullReport failed")
 		}
 	})
@@ -579,7 +579,7 @@ func TestPlacementRegistrar_GenerateFullReport(t *testing.T) {
 		}
 
 		rep := pr.GenerateFullReport()
-		if rep.totalComapanies != 1 || rep.totalOffersMade != 0 {
+		if rep.TotalComapanies != 1 || rep.TotalOffersMade != 0 {
 			t.Error("GenerateFullReport should handle no applications")
 		}
 	})
@@ -587,22 +587,28 @@ func TestPlacementRegistrar_GenerateFullReport(t *testing.T) {
 	t.Run("should count offers by category", func(t *testing.T) {
 		a1 := NewApplicant(Student{id: 100}, AcademicRecord{})
 		a2 := NewApplicant(Student{id: 101}, AcademicRecord{})
+		a3 := NewApplicant(Student{id: 102}, AcademicRecord{})
+		a4 := NewApplicant(Student{id: 103}, AcademicRecord{})
 		d1 := NewDrive(time.Now(), time.Now(), "Dev1", 8.0, 100, Dream)
-		d2 := NewDrive(time.Now(), time.Now(), "Dev2", 8.0, 100, Day)
+		d2 := NewDrive(time.Now(), time.Now(), "dev2", 8.0, 100, Day)
+		d3 := NewDrive(time.Now(), time.Now(), "Dev3", 8.0, 100, SuperDream)
+		d4 := NewDrive(time.Now(), time.Now(), "Dev4", 8.0, 100, Marquee)
 		app1 := &Application{id: 1, driveId: d1.ID(), Applicant: a1, status: Selected}
 		app2 := &Application{id: 2, driveId: d2.ID(), Applicant: a2, status: Selected}
+		app3 := &Application{id: 3, driveId: d3.ID(), Applicant: a3, status: Selected}
+		app4 := &Application{id: 4, driveId: d4.ID(), Applicant: a4, status: Selected}
 		c := &Company{id: 100, drives: []*Drive{d1, d2}}
 		pr := &PlacementRegistrar{
-			applicants:   []*Applicant{a1, a2},
+			applicants:   []*Applicant{a1, a2, a3, a4},
 			companies:    []*Company{c},
-			applications: []*Application{app1, app2},
+			applications: []*Application{app1, app2, app3, app4},
 		}
 
 		rep := pr.GenerateFullReport()
-		if rep.totalOffersByCatagory[Dream] != 1 {
+		if rep.TotalOffersByCatagory[Dream] != 1 {
 			t.Error("GenerateFullReport should count Dream offers")
 		}
-		if rep.totalOffersByCatagory[Day] != 1 {
+		if rep.TotalOffersByCatagory[Day] != 1 {
 			t.Error("GenerateFullReport should count Day offers")
 		}
 	})
@@ -627,11 +633,11 @@ func TestPlacementRegistrar_GenerateReportByStudent(t *testing.T) {
 		}
 
 		report := reports[0]
-		if report.applicant != a {
+		if report.Applicant != a {
 			t.Error("Report applicant should match")
 		}
-		if report.ctcForFinalOffer != 100 {
-			t.Errorf("Expected CTC 100, got %d", report.ctcForFinalOffer)
+		if report.CtcForFinalOffer != 100 {
+			t.Errorf("Expected CTC 100, got %d", report.CtcForFinalOffer)
 		}
 	})
 
@@ -651,10 +657,10 @@ func TestPlacementRegistrar_GenerateReportByStudent(t *testing.T) {
 		}
 
 		report := reports[0]
-		if report.finalOffer != nil {
+		if report.FinalOffer != nil {
 			t.Error("Final offer should be nil for no offers")
 		}
-		if report.ctcForFinalOffer != 0 {
+		if report.CtcForFinalOffer != 0 {
 			t.Error("CTC should be 0 for no offers")
 		}
 	})
@@ -679,8 +685,8 @@ func TestPlacementRegistrar_GenerateReportByStudent(t *testing.T) {
 		}
 
 		report := reports[0]
-		if len(report.eligibileRoles) != 2 {
-			t.Errorf("Expected 2 eligible roles, got %d", len(report.eligibileRoles))
+		if len(report.EligibileRoles) != 2 {
+			t.Errorf("Expected 2 eligible roles, got %d", len(report.EligibileRoles))
 		}
 	})
 
@@ -705,7 +711,7 @@ func TestPlacementRegistrar_GenerateReportByStudent(t *testing.T) {
 
 		studentIDs := make(map[int]bool)
 		for _, report := range reports {
-			studentIDs[report.applicant.ID()] = true
+			studentIDs[report.Applicant.ID()] = true
 		}
 
 		if !studentIDs[93] || !studentIDs[94] {

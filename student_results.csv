@@ -1,0 +1,3 @@
+course_id,course_name,student_id,student_name,score,grade
+101,Data Structures,1,Alice,85.50,A
+101,Data Structures,2,Bob,78.00,B+

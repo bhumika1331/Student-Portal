@@ -29,7 +29,7 @@ func (a *Applicant) getAllReceivedOffersDrivesAndApplications() ([]*Drive, []*Ap
 	return drarr, pparr
 }
 
-func (a *Applicant) getFinalOffer() (int, error) {
+func (a *Applicant) GetFinalOffer() (int, error) {
 	drArr, _ := a.getAllReceivedOffersDrivesAndApplications()
 	if len(drArr) == 0 {
 		return -1, fmt.Errorf("no offers yet")
@@ -52,7 +52,6 @@ func (a *Applicant) SetDrivesAppliedFor(drives []*Drive) {
 
 func (a *Applicant) CompaniesAppliedFor(pr *PlacementRegistrar) []string {
 	companySet := make(map[string]struct{})
-
 	for _, app := range pr.applications {
 		if app.Applicant.Student.id == a.Student.id {
 			for _, company := range pr.companies {
